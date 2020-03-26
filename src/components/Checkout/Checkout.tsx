@@ -1,13 +1,11 @@
 import React from 'react'
 import { Link, Router, Switch, Route } from 'react-router-dom';
 
-function Main () {
+function Checkout () {
     return (
-        <Link to="/">
+        <Link to="/Checkout">
         <div>
-            <Link to="/products">
-            <h1>START KÖP</h1>
-            </Link>
+                <h1>Checkout</h1>
         </div>
         </Link>
     )
@@ -15,4 +13,4 @@ function Main () {
 
 
 
-export default Main
+export default Checkout
