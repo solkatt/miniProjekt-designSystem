@@ -13,10 +13,10 @@ import dammsugare from "../../img/dammsugare.jpg"
 import { Product } from "../../App"
 import ProductItem from "../ProductItem/ProductItem"
 import { Link } from 'react-router-dom';
+import { CartConsumer } from '../../contexts/CartContext';
 
-interface Props {
-  products: Product[]
-}
+
+interface Props {}
 
 const useStyles = makeStyles((theme: Theme ) =>
  createStyles({
@@ -33,35 +33,38 @@ const useStyles = makeStyles((theme: Theme ) =>
 }),
 );
 
-function handleAdd(props: any) {
-    alert(props.ProductItem)
-}
+// interfacet RouteComponentProps
 
-export default function GridListExampleSimple() {  
+export default function ProductGrid(props: Props) {  
     const classes = useStyles();
-    return ( 
-        <Link to="/products">
+
+
+    return (
+      <CartConsumer>
+        {(cartState) => (
           <div className={classes.rootClass}>
             <GridList
               cellHeight={'auto'}
               style={GridListStyle}>
 
-            <Subheader>December</Subheader>
+            <Subheader>Produkter</Subheader>
             
-            {ProductData.map((ProductItem) => (
-
-            <GridTile
-              key={ProductItem.id}
-              title={ProductItem.name}
-              subtitle={<span>by <b>{ProductItem.description}</b></span>}
-              actionIcon={<IconButton><AddShoppingCartIcon color="white" onClick={handleAdd} /></IconButton>}>
-              <img alt='FUNKAR EJ' src={ProductItem.image} />
-            </GridTile>
+            {ProductData.map((product) => (
+              <Link to={"/product/" + product.id}>
+                <GridTile
+                  key={product.id}
+                  title={product.name}
+                  subtitle={<span><b>{product.price}:-</b></span>}
+                  actionIcon={<IconButton><AddShoppingCartIcon color="white" onClick={() => cartState.addToCart(product)} /></IconButton>}>
+                  <img alt='FUNKAR EJ' src={product.image} />
+                </GridTile>
+              </Link>
 
             ))}
             </GridList>
           </div>
-        </Link>
+        )}
+      </CartConsumer>
     )};
 
 const GridListStyle: CSSProperties = {

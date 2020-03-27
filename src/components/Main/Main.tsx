@@ -6,7 +6,7 @@ function Main () {
         <Link to="/">
         <div>
             <Link to="/products">
-            <h1>START KÖP</h1>
+            <h1>Våra produkter</h1>
             </Link>
         </div>
         </Link>

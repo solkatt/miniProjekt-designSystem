@@ -11,11 +11,14 @@ function AppBarExampleIcon() {
 return (
   <Link to="/">
     <AppBar
-    title="Lennart ''Storsugarn'' Anderssons sugkalas"
+    title="Anderssons dammsugare"
     iconClassNameRight="muidocs-icon-navigation-expand-more"
     showMenuIconButton={false}>
-
-    {/* <ShoppingCart style={CartStyle} /> */}
+      <Link to="/products">
+        <div style={h1Style} >
+          <h1>Produkter</h1>
+        </div>
+      </Link>
     <ShoppingCart />
   </AppBar>
     </Link>
@@ -25,3 +28,10 @@ return (
 
 export default AppBarExampleIcon;
 
+const h1Style: CSSProperties = {
+  margin: '1rem',
+}
+
+const AppBarStyle: CSSProperties = {
+
+}

@@ -11,7 +11,14 @@ import FontIcon from 'material-ui/FontIcon';
 import ProductData from "../Data/ProductData";
 import { Link } from 'react-router-dom';
 
+import { CartConsumer } from '../../contexts/CartContext';
+ 
 console.log(ProductData);
+
+
+
+
+
 
 interface Props {
 
@@ -35,31 +42,38 @@ export default class ShoppingCart extends React.Component<Props, State> {
 
   render() {
     return (
-      <div style={CartStyle}>
+      <CartConsumer>
+        {(cartState) => (
+          <div style={CartStyle}>
 
-        <RaisedButton
-          label="Kundvagn"
-          icon={<ShoppingCartIcon />}
+            <RaisedButton
+              label="Kundvagn"
+              icon={<ShoppingCartIcon />}
 
-          onClick={this.handleToggle}
+              onClick={this.handleToggle}
 
-        />
-        <Drawer
-          docked={false}
-          width={300}
-          open={this.state.open}
-          openSecondary={true}
-          onRequestChange={(open) => this.setState({ open })}
-        >
-          <Link to="/checkout" >
-            <RaisedButton label="Gå vidare" buttonStyle={ButtonStyle} fullWidth={true} onClick={this.handleClose} />
-          </Link>
-          <MenuItem onClick={this.handleClose}>Menu Item</MenuItem>
-         
-          <MenuItem onClick={this.handleClose}>Menu Item 2</MenuItem>
-        </Drawer>
+            />
+            <Drawer
+              docked={false}
+              width={300}
+              open={this.state.open}
+              openSecondary={true}
+              onRequestChange={(open) => this.setState({ open })}
+            >
+              <Link to="/checkout" >
+                <RaisedButton label="Gå vidare" buttonStyle={ButtonStyle} fullWidth={true} onClick={this.handleClose} />
+              </Link>
+              <MenuItem onClick={this.handleClose}>Menu Item</MenuItem>
+            
+              <MenuItem onClick={this.handleClose}>Menu Item 2</MenuItem>
+              
+              {cartState.items.length}
 
-      </div>
+            </Drawer>
+
+          </div>
+        )}
+      </CartConsumer>
     );
   }
 }
