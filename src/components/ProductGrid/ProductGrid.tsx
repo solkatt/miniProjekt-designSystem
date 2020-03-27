@@ -15,6 +15,9 @@ import ProductItem from "../ProductItem/ProductItem"
 import { Link } from 'react-router-dom';
 import { CartConsumer } from '../../contexts/CartContext';
 
+import "./ProductGrid.css"
+import { AutoComplete } from 'material-ui';
+
 
 interface Props {}
 
@@ -43,22 +46,22 @@ export default function ProductGrid(props: Props) {
       <CartConsumer>
         {(cartState) => (
           <div className={classes.rootClass}>
-            <GridList
-              cellHeight={'auto'}
-              style={GridListStyle}>
+            <GridList cellHeight={'auto'} style={GridListStyle}>
 
             <Subheader>Produkter</Subheader>
             
             {ProductData.map((product) => (
-              <Link to={"/product/" + product.id}>
+              // <Link to={"/product/" + product.id}>
+                  // <Link to={"/product/"}>
                 <GridTile
+                  style={GridTileStyle}
                   key={product.id}
                   title={product.name}
                   subtitle={<span><b>{product.price}:-</b></span>}
                   actionIcon={<IconButton><AddShoppingCartIcon color="white" onClick={() => cartState.addToCart(product)} /></IconButton>}>
-                  <img alt='FUNKAR EJ' src={product.image} />
+                  <img className="testbild" alt='FUNKAR EJ' src={product.image} />
                 </GridTile>
-              </Link>
+              /* </Link> */
 
             ))}
             </GridList>
@@ -69,6 +72,12 @@ export default function ProductGrid(props: Props) {
 
 const GridListStyle: CSSProperties = {
   width: '80vw',
-  height: '80vh',
+  height: 'auto',
   overflowY: 'auto',
+}
+
+const GridTileStyle: CSSProperties = {
+  width: "30rem",
+  height: "auto",
+  margin: "1rem"
 }

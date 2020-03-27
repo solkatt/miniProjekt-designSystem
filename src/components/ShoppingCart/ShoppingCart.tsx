@@ -5,7 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 import ShoppingCartIcon from 'material-ui/svg-icons/action/shopping-cart';
 import FontIcon from 'material-ui/FontIcon';
-
+import ShoppingCartItem from './ShoppingCartItem'
 
 
 import ProductData from "../Data/ProductData";
@@ -45,10 +45,9 @@ export default class ShoppingCart extends React.Component<Props, State> {
       <CartConsumer>
         {(cartState) => (
           <div style={CartStyle}>
-
             <RaisedButton
               label="Kundvagn"
-              icon={<ShoppingCartIcon />}
+              icon={<ShoppingCartIcon style={cartState.items.length ? test2 : test} />}
 
               onClick={this.handleToggle}
 
@@ -59,15 +58,17 @@ export default class ShoppingCart extends React.Component<Props, State> {
               open={this.state.open}
               openSecondary={true}
               onRequestChange={(open) => this.setState({ open })}
-            >
+
+              >
               <Link to="/checkout" >
                 <RaisedButton label="Gå vidare" buttonStyle={ButtonStyle} fullWidth={true} onClick={this.handleClose} />
               </Link>
-              <MenuItem onClick={this.handleClose}>Menu Item</MenuItem>
-            
-              <MenuItem onClick={this.handleClose}>Menu Item 2</MenuItem>
+              {cartState.items.map((item) => (
+                <ShoppingCartItem product={item.product} count={item.count} />
+              ))}
               
-              {cartState.items.length}
+              {/* {cartState.items.length} */}
+           
 
             </Drawer>
 
@@ -87,4 +88,12 @@ const CartStyle: CSSProperties = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+}
+
+const test: CSSProperties = {
+  fill: 'red'
+}
+const test2: CSSProperties = {
+  fill: 'green'
+
 }

@@ -52,7 +52,7 @@ class App extends React.Component<Props,State> {
             <AppBarExampleIcon />
             <Switch>
               <Route exact path="/" component={ProductGrid} />
-              <Route path="/product/:id" component={ProductDetailView} />
+              {/* <Route path="/product/:id" component={ProductDetailView} /> */}
               <Route path="/checkout" component={Checkout} />
             </Switch>
           </CartProvider>

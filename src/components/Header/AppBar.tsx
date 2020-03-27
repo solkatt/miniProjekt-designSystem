@@ -14,11 +14,6 @@ return (
     title="Anderssons dammsugare"
     iconClassNameRight="muidocs-icon-navigation-expand-more"
     showMenuIconButton={false}>
-      <Link to="/products">
-        <div style={h1Style} >
-          <h1>Produkter</h1>
-        </div>
-      </Link>
     <ShoppingCart />
   </AppBar>
     </Link>

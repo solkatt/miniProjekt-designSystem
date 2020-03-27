@@ -34,6 +34,9 @@ export class CartProvider extends React.Component<CartProps, CartState> {
     addToCart = (product: Product) => {
         alert('Add to cart: ' + product.name)
         // update state: this.setState()
+        const updatedItems = [...this.state.items, { product, count: 1 }];
+        this.setState({ items: updatedItems })
+        console.log(this.state.items)
     };
     deleteFromCart = (product: Product) => {
         // update state
