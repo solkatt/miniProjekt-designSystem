@@ -51,8 +51,8 @@ export default function ProductGrid(props: Props) {
             <Subheader>Produkter</Subheader>
             
             {ProductData.map((product) => (
-              // <Link to={"/product/" + product.id}>
-                  // <Link to={"/product/"}>
+              <Link to={"/product/" + product.id}>
+
                 <GridTile
                   style={GridTileStyle}
                   key={product.id}
@@ -61,7 +61,7 @@ export default function ProductGrid(props: Props) {
                   actionIcon={<IconButton><AddShoppingCartIcon color="white" onClick={() => cartState.addToCart(product)} /></IconButton>}>
                   <img className="testbild" alt='FUNKAR EJ' src={product.image} />
                 </GridTile>
-              /* </Link> */
+              </Link> 
 
             ))}
             </GridList>

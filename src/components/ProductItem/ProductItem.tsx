@@ -9,13 +9,14 @@ interface Props {
 
 function ProductItem(props: Props) {
 
-    const { name, description, price, image } = props.product
+    const { id, name, description, price, image } = props.product
     return (
-        <div className="ProductItem">
+        <div key={id} className="ProductItem">
             <img alt="" src={image}/>
             <p className="productTitle">{name}</p>
             <p className="productDescription">{description}</p>
             <p className="productPrice">{price}:-</p>
+            {console.log("????",props.product.name)}
         </div>
     )
 }

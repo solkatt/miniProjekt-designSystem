@@ -3,15 +3,16 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import AppBarExampleIcon from "./components/Header/AppBar"
 import ProductGrid from './components/ProductGrid/ProductGrid'
-import Main from './components/Main/Main';
+import ProductDetailView from './components/ProductDetailView/ProductDetailView'
 import ProductData from './components/Data/ProductData'
 
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, useParams } from "react-router-dom";
 
 import { Switch, Route } from 'react-router-dom';
 
 import Checkout from './components/Checkout/Checkout';
 import { CartProvider } from './contexts/CartContext';
+import { match } from 'minimatch';
 
 
 interface State {
@@ -52,7 +53,7 @@ class App extends React.Component<Props,State> {
             <AppBarExampleIcon />
             <Switch>
               <Route exact path="/" component={ProductGrid} />
-              {/* <Route path="/product/:id" component={ProductDetailView} /> */}
+              <Route path="/product/:id" component={ProductDetailView} />
               <Route path="/checkout" component={Checkout} />
             </Switch>
           </CartProvider>
