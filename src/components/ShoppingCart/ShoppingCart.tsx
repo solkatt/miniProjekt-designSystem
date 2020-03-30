@@ -36,44 +36,35 @@ export default class ShoppingCart extends React.Component<Props, State> {
 
   handleClose = () => this.setState({ open: false });
 
-
+  
   render() {
     return (
       <CartConsumer>
-
         {(cartState) => (
-          <div style={CartStyle}>
+          <div>
             <RaisedButton
-              label="Kundvagn"
-              // icon={<ShoppingCartIcon style={cartState.items.length ? test2 : test} />}
-
-              onClick={this.handleToggle}
-
-            >
-
-              <ShoppingCartBadge
-
-                cartCount={cartState.items.length}
-
-              />
-
+              buttonStyle={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onClick={this.handleToggle}>
+              <ShoppingCartBadge cartCount={cartState.items.length}/>
             </RaisedButton>
-
-
 
             <Drawer
               docked={false}
               width={300}
               open={this.state.open}
               openSecondary={true}
-              onRequestChange={(open) => this.setState({ open })}
+              onRequestChange={(open) => this.setState({ open })}>
 
-            >
               <Link to="/checkout" >
-                <RaisedButton label="Till kassan" buttonStyle={ButtonStyle} fullWidth={true} onClick={this.handleClose} />
+                <RaisedButton label="Till kassan" fullWidth={true} onClick={this.handleClose} />
               </Link>
+
               {cartState.items.map((item) => (
-                <ShoppingCartItem product={item.product} count={item.count} />
+                <ShoppingCartItem  product={item.product} count={item.count} />
               ))}
 
               {/* {cartState.items.length} */}
@@ -84,8 +75,7 @@ export default class ShoppingCart extends React.Component<Props, State> {
               {/* {cartState.items.map((item) => ( 
                 item.
               ))} */}
-              <h5>Total: {() => { }}</h5>
-
+              <h5>Total: {cartState.totalSum}:-</h5>             
             </Drawer>
 
           </div>
@@ -94,26 +84,6 @@ export default class ShoppingCart extends React.Component<Props, State> {
     );
   }
 }
-
-
-const ButtonStyle: CSSProperties = {
-  background: '#64DD17',
-}
-
-const CartStyle: CSSProperties = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-}
-
-const test: CSSProperties = {
-  fill: 'red'
-}
-const test2: CSSProperties = {
-  fill: 'green'
-
-}
-
 
 const kundvagn1: CSSProperties = {
   display: 'none',

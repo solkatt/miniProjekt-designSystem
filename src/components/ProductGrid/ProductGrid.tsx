@@ -59,7 +59,7 @@ export default function ProductGrid(props: Props) {
                 subtitle={<span><b>{product.price}:-</b></span>}
                 actionIcon={<IconButton><AddShoppingCartIcon color="white" onClick={() => cartState.addToCart(product)} /></IconButton>}>
                 <Link to={"/product/" + product.id}>
-                  <img className="testbild" alt='FUNKAR EJ' src={product.image} />
+                  <img className="testbild" alt='' src={product.image} />
                 </Link>
               </GridTile>
 

@@ -6,9 +6,11 @@ import { Link } from 'react-router-dom';
 
 function AppBarExampleIcon() {
   return (
-    <Link to="/">
+    <Link to="/" style={{
+      textDecorationLine: "none",
+    }}>
       <AppBar
-        titleStyle={h1Style}
+        style={AppBarStyle}
         title="Anderssons dammsugare"
         iconClassNameRight="muidocs-icon-navigation-expand-more"
         showMenuIconButton={false}>
@@ -21,11 +23,9 @@ function AppBarExampleIcon() {
 
 export default AppBarExampleIcon;
 
-const h1Style: CSSProperties = {
-  listStyleType: 'none',
-  textDecoration: 'none',
-}
-
 const AppBarStyle: CSSProperties = {
-
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  background: "darkred",
 }

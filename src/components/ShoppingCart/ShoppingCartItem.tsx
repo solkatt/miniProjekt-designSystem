@@ -1,5 +1,8 @@
 import React, { Component, CSSProperties } from 'react'
 import { Product } from '../../App'
+import DeleteIcon from 'material-ui/svg-icons/action/delete';
+
+import IconButton from 'material-ui/IconButton';
 
 
 interface ShoppingCartProps {
@@ -10,22 +13,33 @@ interface ShoppingCartProps {
 class ShoppingCartItem extends Component<ShoppingCartProps> {
 
     render() {
+
+     
         const { name, price, image } = this.props.product
         return (
             <>
                 <div style={ShoppingCartItemStyle}>
                     <img style={ShoppingCartItemImage} src={image} />
+                    <h4>{name} </h4>
                     <div style={ShoppingCartItemText}>
-                        <h4>{name} </h4>
-                        <h5>{price} :-</h5>
+                    <IconButton><DeleteIcon color="black" onClick={() => {alert('DELETE FROM CART')}}/></IconButton>
+
+                        <h5>{price}:-</h5>
+
                     </div>
 
 
                 </div>
                 <hr></hr>
             </>
+           
+           
+           
         )
+
+      
     }
+
 }
 
 
@@ -45,5 +59,6 @@ const ShoppingCartItemImage: CSSProperties = {
 
 const ShoppingCartItemText: CSSProperties = {
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    alignContent: 'center'
 }
