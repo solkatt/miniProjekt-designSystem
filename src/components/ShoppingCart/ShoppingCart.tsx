@@ -12,13 +12,10 @@ import ProductData from "../Data/ProductData";
 import { Link } from 'react-router-dom';
 
 import { CartConsumer } from '../../contexts/CartContext';
- 
+import ShoppingCartBadge from './ShoppingCartBadge';
+import { NONAME } from 'dns';
+
 console.log(ProductData);
-
-
-
-
-
 
 interface Props {
 
@@ -27,7 +24,6 @@ interface Props {
 interface State {
   open: boolean
 }
-
 
 export default class ShoppingCart extends React.Component<Props, State> {
 
@@ -40,18 +36,31 @@ export default class ShoppingCart extends React.Component<Props, State> {
 
   handleClose = () => this.setState({ open: false });
 
+
   render() {
     return (
       <CartConsumer>
+
         {(cartState) => (
           <div style={CartStyle}>
             <RaisedButton
               label="Kundvagn"
-              icon={<ShoppingCartIcon style={cartState.items.length ? test2 : test} />}
+              // icon={<ShoppingCartIcon style={cartState.items.length ? test2 : test} />}
 
               onClick={this.handleToggle}
 
-            />
+            >
+
+              <ShoppingCartBadge
+
+                cartCount={cartState.items.length}
+
+              />
+
+            </RaisedButton>
+
+
+
             <Drawer
               docked={false}
               width={300}
@@ -59,16 +68,23 @@ export default class ShoppingCart extends React.Component<Props, State> {
               openSecondary={true}
               onRequestChange={(open) => this.setState({ open })}
 
-              >
+            >
               <Link to="/checkout" >
-                <RaisedButton label="Gå vidare" buttonStyle={ButtonStyle} fullWidth={true} onClick={this.handleClose} />
+                <RaisedButton label="Till kassan" buttonStyle={ButtonStyle} fullWidth={true} onClick={this.handleClose} />
               </Link>
               {cartState.items.map((item) => (
                 <ShoppingCartItem product={item.product} count={item.count} />
               ))}
-              
+
               {/* {cartState.items.length} */}
-           
+
+              <h4 style={cartState.items.length ? kundvagn1 : kundvagn2}
+              >Kundvagnen är tom</h4>
+
+              {/* {cartState.items.map((item) => ( 
+                item.
+              ))} */}
+              <h5>Total: {() => { }}</h5>
 
             </Drawer>
 
@@ -95,5 +111,15 @@ const test: CSSProperties = {
 }
 const test2: CSSProperties = {
   fill: 'green'
+
+}
+
+
+const kundvagn1: CSSProperties = {
+  display: 'none',
+}
+const kundvagn2: CSSProperties = {
+  display: 'block',
+
 
 }
