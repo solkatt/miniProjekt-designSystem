@@ -15,7 +15,7 @@ class ShoppingCartItem extends Component<ShoppingCartProps> {
     render() {
 
      
-        const { name, price, image } = this.props.product
+        const { name, price, image} = this.props.product
         return (
             <>
                 <div style={ShoppingCartItemStyle}>
@@ -25,6 +25,7 @@ class ShoppingCartItem extends Component<ShoppingCartProps> {
                     <IconButton><DeleteIcon color="black" onClick={() => {alert('DELETE FROM CART')}}/></IconButton>
 
                         <h5>{price}:-</h5>
+                        <h5>Antal: </h5>
 
                     </div>
 

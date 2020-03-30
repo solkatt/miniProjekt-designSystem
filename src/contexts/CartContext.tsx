@@ -41,8 +41,28 @@ export class CartProvider extends React.Component<CartProps, CartState> {
     addToCart = (product: Product) => {
         // alert('Add to cart: ' + product.name)
         // update state: this.setState()
-        const updatedItems = [...this.state.items, { product, count: 1 }];
-        this.setState({ items: updatedItems })
+        if(this.state.items.length === 0) {
+            const updatedItems = [...this.state.items, { product, count: 1 }];
+            this.setState({ items: updatedItems })
+        } else {
+
+            for (let i = 0; i < this.state.items.length; i++) {
+                if(product.id === this.state.items[i].product.id) {
+
+                    this.state.items[i].count += 1
+                    console.log("plus på count")
+                    
+                } else {
+                    
+                     const updatedItems = [...this.state.items, { product, count: 1 }];
+                     this.setState({ items: updatedItems })
+                    console.log('lägg till first prod')
+                }
+                console.log("index", i)
+            }
+        }
+            
+
         this.totalPrice(this.state.items);
         console.log("this.state.items ",this.state.items)
         console.log("product", product)
@@ -52,8 +72,8 @@ export class CartProvider extends React.Component<CartProps, CartState> {
     deleteFromCart = (product: Product) => {
         for (let i = 0; i < this.state.items.length; i++) {
             if(product.id == this.state.items[i].product.id) {
-                console.log(this.state.items[i].count - 1)
-                console.log("samma?")
+                // console.log(this.state.items[i].count)
+                // console.log("samma?")
             }
         }
     };
