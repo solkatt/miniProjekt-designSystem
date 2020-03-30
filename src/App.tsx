@@ -34,19 +34,19 @@ export interface Product {
   image: string;
 }
 
-interface Props {}
+interface Props { }
 
-class App extends React.Component<Props,State> {
+class App extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-     this.state = {
+    this.state = {
       products: ProductData,
       cartItems: [],
     }
   }
 
   render() {
-    return(
+    return (
       <BrowserRouter>
         <MuiThemeProvider>
           <CartProvider>

@@ -8,7 +8,7 @@ const StyledBadge = withStyles((theme: Theme) =>
     createStyles({
         badge: {
             right: -3,
-            top: 13,
+            top: -2,
             border: `2px solid ${theme.palette.background.paper}`,
             padding: '0 4px',
         },
@@ -17,9 +17,16 @@ const StyledBadge = withStyles((theme: Theme) =>
 
 export default function ShoppingCartBadge(props: any) {
     return (
-        <IconButton aria-label="cart">
-            <StyledBadge badgeContent={props.cartCount} color="secondary">
-                <ShoppingCartIcon />
+        <IconButton aria-label="cart" size='small'>
+            <StyledBadge
+                badgeContent={props.cartCount}
+                color="secondary"
+                overlap='circle'
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}>
+                <ShoppingCartIcon color='white' />
             </StyledBadge>
         </IconButton>
     );

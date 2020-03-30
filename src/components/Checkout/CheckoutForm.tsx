@@ -24,7 +24,7 @@ export default function CheckoutForm() {
 
 
 
-                <TextField id="outlined-epost" label="E-post" type="email" variant="outlined" />
+                <TextField style={{ marginTop: '2rem' }} id="outlined-epost" label="E-post" type="email" variant="outlined" />
                 <TextField id="outlined-mobilnummer" label="Mobilnummer" type="tel" variant="outlined" />
 
                 <TextField

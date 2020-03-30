@@ -36,20 +36,16 @@ export default class ShoppingCart extends React.Component<Props, State> {
 
   handleClose = () => this.setState({ open: false });
 
-  
+
   render() {
     return (
       <CartConsumer>
         {(cartState) => (
           <div>
             <RaisedButton
-              buttonStyle={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
+              buttonStyle={shoppingCartButton}
               onClick={this.handleToggle}>
-              <ShoppingCartBadge cartCount={cartState.items.length}/>
+              <ShoppingCartBadge cartCount={cartState.items.length} />
             </RaisedButton>
 
             <Drawer
@@ -64,7 +60,7 @@ export default class ShoppingCart extends React.Component<Props, State> {
               </Link>
 
               {cartState.items.map((item) => (
-                <ShoppingCartItem  product={item.product} count={item.count} />
+                <ShoppingCartItem product={item.product} count={item.count} />
               ))}
 
               {/* {cartState.items.length} */}
@@ -75,7 +71,7 @@ export default class ShoppingCart extends React.Component<Props, State> {
               {/* {cartState.items.map((item) => ( 
                 item.
               ))} */}
-              <h5>Total: {cartState.totalSum}:-</h5>             
+              <h5>Total: {cartState.totalSum}:-</h5>
             </Drawer>
 
           </div>
@@ -84,6 +80,15 @@ export default class ShoppingCart extends React.Component<Props, State> {
     );
   }
 }
+
+
+const shoppingCartButton: CSSProperties = {
+  background: 'green',
+
+}
+
+
+
 
 const kundvagn1: CSSProperties = {
   display: 'none',

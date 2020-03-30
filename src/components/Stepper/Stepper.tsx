@@ -11,6 +11,7 @@ import ShoppingCartItem from '../ShoppingCart/ShoppingCartItem'
 import { CartConsumer } from '../../contexts/CartContext';
 
 import CheckoutForm from '../Checkout/CheckoutForm'
+import DeliveryForm from '../Checkout/DeliveryForm';
 class VerticalLinearStepper extends React.Component {
 
   state = {
@@ -94,6 +95,7 @@ class VerticalLinearStepper extends React.Component {
                   <p>
                     Välj fraktsätt
               </p>
+                  <DeliveryForm />
                   {this.renderStepActions(2)}
                 </StepContent>
               </Step>

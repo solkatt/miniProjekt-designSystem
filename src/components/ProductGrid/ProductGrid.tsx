@@ -46,13 +46,18 @@ export default function ProductGrid(props: Props) {
     <CartConsumer>
       {(cartState) => (
         <div className={classes.rootClass}>
-          <GridList cellHeight={'auto'} style={GridListStyle}>
+          <GridList
+            cellHeight={'auto'}
+            style={GridListStyle}
+            cols={4}
+          >
 
             <Subheader>Produkter</Subheader>
 
             {ProductData.map((product) => (
 
               <GridTile
+
                 style={GridTileStyle}
                 key={product.id}
                 title={product.name}
@@ -72,13 +77,13 @@ export default function ProductGrid(props: Props) {
 };
 
 const GridListStyle: CSSProperties = {
-  width: '80vw',
+  width: '90vw',
   height: 'auto',
   overflowY: 'auto',
 }
 
 const GridTileStyle: CSSProperties = {
-  width: "20rem",
+  width: "100%",
   height: "auto",
   margin: "1rem"
 }

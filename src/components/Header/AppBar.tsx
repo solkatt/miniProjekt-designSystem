@@ -9,13 +9,16 @@ function AppBarExampleIcon() {
     <Link to="/" style={{
       textDecorationLine: "none",
     }}>
-      <AppBar
-        style={AppBarStyle}
-        title="Anderssons dammsugare"
-        iconClassNameRight="muidocs-icon-navigation-expand-more"
-        showMenuIconButton={false}>
-        <ShoppingCart />
-      </AppBar>
+      <>
+        <AppBar
+          style={AppBarStyle}
+          title="Anderssons dammsugare"
+          iconClassNameRight="muidocs-icon-navigation-expand-more"
+          showMenuIconButton={false}>
+          <ShoppingCart />
+        </AppBar>
+
+      </>
     </Link >
   )
 
