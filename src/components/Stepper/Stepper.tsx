@@ -10,6 +10,7 @@ import FlatButton from 'material-ui/FlatButton';
 import ShoppingCartItem from '../ShoppingCart/ShoppingCartItem'
 import { CartConsumer } from '../../contexts/CartContext';
 
+import CheckoutForm from '../Checkout/CheckoutForm'
 class VerticalLinearStepper extends React.Component {
 
   state = {
@@ -83,7 +84,7 @@ class VerticalLinearStepper extends React.Component {
               <Step>
                 <StepLabel>Dina uppgifter</StepLabel>
                 <StepContent>
-                  <p>Skriv in dina uppgifter</p>
+                  <CheckoutForm />
                   {this.renderStepActions(1)}
                 </StepContent>
               </Step>
