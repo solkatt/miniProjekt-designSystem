@@ -11,11 +11,13 @@ import { Link } from 'react-router-dom';
 import { CartConsumer } from '../../contexts/CartContext';
 
 import "./ProductGrid.css"
+import { render } from '@testing-library/react';
+
 
 
 interface Props {
 
- }
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,25 +31,64 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 450,
       overflowY: 'auto',
     },
-  }),
-);
 
+
+  }),
+
+
+);
+interface State {
+  size: 'mobile' | 'tablet' | 'desktop'
+}
 // interfacet RouteComponentProps
 
-export default function ProductGrid(props: Props) {
-  const classes = useStyles();
+class ProductGrid extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props)
 
-  
+    this.state = {
+      size: 'desktop'
+    }
+  }
 
+
+handleWindowsResize = () => {
+  if (window.innerWidth < 579) {
+    this.setState({ size: 'mobile' })
+  } else if (window.innerWidth < 879) {
+    this.setState({ size: 'tablet' })
+  } else {
+    this.setState({ size: 'desktop' })
+  }
+}
+
+componentDidMount() {
+  window.addEventListener('resize', this.handleWindowsResize)
+}
+
+componentWillUnmount() {
+  window.removeEventListener('resize', this.handleWindowsResize)
+}
+
+test = () => {
+  if(this.state.size === 'mobile') {
+    return 1
+  } else {
+    return 2
+  }
+}
+
+render() {
   return (
     <CartConsumer>
       {(cartState) => (
-        <div className={classes.rootClass}>
+        <div >
           <GridList
             cellHeight={'auto'}
-            style={GridListStyle}
-            cols={4}
-            >
+            // style={GridListStyle}
+            cols={this.test()}
+
+          >
 
             <Subheader>Produkter</Subheader>
 
@@ -56,13 +97,13 @@ export default function ProductGrid(props: Props) {
 
               <GridTile
 
-                style={GridTileStyle}
                 key={product.id}
+
                 title={product.name}
                 subtitle={<span><b>{product.price}:-</b></span>}
-                actionIcon={<IconButton><AddShoppingCartIcon color="white" onClick={() => cartState.addToCart(product)} /></IconButton>}>
+                actionIcon={<IconButton><AddShoppingCartIcon className='shoppingCartIcon' color="white" onClick={() => cartState.addToCart(product)} /></IconButton>}>
                 <Link to={"/product/" + product.id}>
-                  <img className="testbild" alt='' src={product.image} />
+                  <img className="productImage" alt='' src={product.image} />
                 </Link>
               </GridTile>
 
@@ -72,18 +113,21 @@ export default function ProductGrid(props: Props) {
       )}
     </CartConsumer>
   )
-};
+}}
+;
+export default ProductGrid
 
 const GridListStyle: CSSProperties = {
   width: '90vw',
   height: 'auto',
   overflowY: 'auto',
-  
+  display: "flex",
+  flexWrap: "wrap",
 }
 
 const GridTileStyle: CSSProperties = {
   width: "100%",
   height: "auto",
-  margin: "1rem"
 }
+
 

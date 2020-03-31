@@ -5,6 +5,7 @@ import { CartConsumer } from '../../contexts/CartContext';
 import { IconButton } from 'material-ui';
 
 import AddShoppingCartIcon from 'material-ui/svg-icons/action/add-shopping-cart';
+import { Link } from 'react-router-dom';
 
 
 
@@ -21,35 +22,32 @@ class ProductDetailView extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props)
         const userId = this.props.match.params.id;
-        const id = Number(userId.charAt(3));
+        const id = Number(userId);
         this.state = {
             products: ProductData,
             id: id
         }
-        console.log('userId:', Number(userId.charAt(3)))
     }
 
     render() {
         return (
 
             <CartConsumer>
-            {(cartState) => (
+                {(cartState) => (
+                    <div style={ProductDetailViewDiv} className="ProductItem">
+                        <Link to="/">
+                            <img alt="" style={ProductDetailViewImage} src={this.state.products[this.state.id].image} />
+                        </Link>
+                        <p className="productTitle">{this.state.products[this.state.id].name}</p>
+                        <p className="productDescription">{this.state.products[this.state.id].description}</p>
+                        <p className="productPrice">{this.state.products[this.state.id].price}:-</p>
+                        <IconButton><AddShoppingCartIcon color="black" onClick={() => cartState.addToCart(this.state.products[this.state.id])} /></IconButton>
+
+                    </div>
 
 
-
-            <div className="ProductItem">
-
-                <img alt="" style={ProductDetailViewImage} src={this.state.products[this.state.id].image} />
-                <p className="productTitle">{this.state.products[this.state.id].name}</p>
-                <p className="productDescription">{this.state.products[this.state.id].description}</p>
-                <p className="productPrice">{this.state.products[this.state.id].price}:-</p>
-                <IconButton><AddShoppingCartIcon color="black" onClick={() => cartState.addToCart(this.state.products[this.state.id])} /></IconButton>
-         
-            </div>
-
-            
-        )}
-        </CartConsumer>
+                )}
+            </CartConsumer>
         )
 
     }
@@ -59,9 +57,13 @@ class ProductDetailView extends React.Component<Props, State> {
 
 const ProductDetailViewImage: CSSProperties = {
     width: '60%',
-    height: 'auto'
+    height: 'auto',
+    justifyContent: 'center',
+    alignItems: 'center'
 }
-
+const ProductDetailViewDiv: CSSProperties = {
+    display: 'flex'
+}
 
 
 

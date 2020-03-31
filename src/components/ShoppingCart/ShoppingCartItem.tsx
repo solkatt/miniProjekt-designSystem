@@ -27,10 +27,10 @@ class ShoppingCartItem extends Component<ShoppingCartProps> {
                     <img alt='product' style={ShoppingCartItemImage} src={image} />
                     <h4>{name} </h4>
                     <div style={ShoppingCartItemText}>
-                    <IconButton><DeleteIcon color="black" onClick={() => {cartState.deleteFromCart(this.props.product)}}/></IconButton>
 
                         <h5>{price * this.props.count}:-</h5>
                         <h5>Antal: {this.props.count}</h5>
+                        <IconButton><DeleteIcon color="black" onClick={() => {cartState.deleteFromCart(this.props.product)}}/></IconButton>
 
                     </div>
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
 import AppBarExampleIcon from "./components/Header/AppBar"
 import ProductGrid from './components/ProductGrid/ProductGrid'
 import ProductDetailView from './components/ProductDetailView/ProductDetailView'
@@ -12,7 +11,8 @@ import { Switch, Route } from 'react-router-dom';
 
 import Checkout from './components/Checkout/Checkout';
 import { CartProvider } from './contexts/CartContext';
-
+import withWidth from '@material-ui/core/withWidth';
+import { ThemeProvider } from '@material-ui/core';
 
 interface State {
   cartItems: CartItemData[];
@@ -48,10 +48,11 @@ class App extends React.Component<Props, State> {
   render() {
     return (
       <BrowserRouter>
-        <MuiThemeProvider>
+        <MuiThemeProvider >
           <CartProvider>
             <AppBarExampleIcon />
             <Switch>
+
               <Route exact path="/" component={ProductGrid} />
               <Route path="/product/:id" component={ProductDetailView} />
               <Route path="/checkout" component={Checkout} />
