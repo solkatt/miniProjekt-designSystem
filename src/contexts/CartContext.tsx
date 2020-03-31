@@ -13,16 +13,16 @@ interface CartState {
     items: CartItemData[];
     addToCart: (product: Product) => void;
     deleteFromCart: (product: Product) => void;
-    totalPrice: (items: CartItemData[]) => void;
-    totalSum: number
+    totalPrice: () => number;
+    totalCount: () => number;
 }
 
 const CartContext = createContext<CartState>({
     items: [],
     addToCart: (product: Product) => { },
     deleteFromCart: (product: Product) => { },
-    totalPrice: (items: CartItemData[]) => { },
-    totalSum: 0
+    totalPrice: () => 0,
+    totalCount: () => 0,
 });
 
 
@@ -34,61 +34,60 @@ export class CartProvider extends React.Component<CartProps, CartState> {
             addToCart: this.addToCart,
             deleteFromCart: this.deleteFromCart,
             totalPrice: this.totalPrice,
-            totalSum: 0
+            totalCount: this.totalCount
         };
     }
 
     addToCart = (product: Product) => {
-        // alert('Add to cart: ' + product.name)
-        // update state: this.setState()
-        if(this.state.items.length === 0) {
-            const updatedItems = [...this.state.items, { product, count: 1 }];
-            this.setState({ items: updatedItems })
-        } else {
-
-            for (let i = 0; i < this.state.items.length; i++) {
-                if(product.id === this.state.items[i].product.id) {
-
-                    this.state.items[i].count += 1
-                    console.log("plus på count")
-                    
-                } else {
-                    
-                     const updatedItems = [...this.state.items, { product, count: 1 }];
-                     this.setState({ items: updatedItems })
-                    console.log('lägg till first prod')
-                }
-                console.log("index", i)
+        const clonedItems: CartItemData[] = Object.assign([], this.state.items);
+        
+        for (const item of clonedItems) {
+            if (product.id === item.product.id) {       
+                item.count += 1;
+                this.setState({ items: clonedItems })
+                return
             }
         }
-            
 
-        this.totalPrice(this.state.items);
-        console.log("this.state.items ",this.state.items)
-        console.log("product", product)
-        this.deleteFromCart(product)
+        clonedItems.push({ product, count: 1 });
+        this.setState({ items: clonedItems })
     };
 
     deleteFromCart = (product: Product) => {
-        for (let i = 0; i < this.state.items.length; i++) {
-            if(product.id == this.state.items[i].product.id) {
-                // console.log(this.state.items[i].count)
-                // console.log("samma?")
+
+    const clonedItems: CartItemData[] = Object.assign([], this.state.items);
+
+        for (const item of clonedItems) {
+            if(product.id === item.product.id) {
+
+                item.count -= 1
+                this.setState({ items: clonedItems })
+                if(item.count < 1) {
+                    
+                    clonedItems.splice(clonedItems.indexOf(item), 1)
+                    this.setState({ items: clonedItems })
+                }
+                return
             }
         }
+  
     };
 
 
-    totalPrice = (items:CartItemData[]) => {
+    totalPrice = (): number => {
         let total = 0;
-
-        for (let i = 0; i < items.length;) {
-            total += items[i].product.price * items[i].count
-            i++
+        for (const item of this.state.items) {
+            total += item.product.price * item.count
         }
-        this.setState({
-            totalSum: total
-        })
+        return total
+    }
+
+    totalCount = (): number => {
+        let total = 0;
+        for (const item of this.state.items) {
+             total += item.count
+        }
+        return total
     }
 
     render() {

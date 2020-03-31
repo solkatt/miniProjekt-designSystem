@@ -3,6 +3,7 @@ import { Product } from '../../App'
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 
 import IconButton from 'material-ui/IconButton';
+import { CartConsumer } from '../../contexts/CartContext';
 
 
 interface ShoppingCartProps {
@@ -15,27 +16,30 @@ class ShoppingCartItem extends Component<ShoppingCartProps> {
     render() {
 
      
+       
         const { name, price, image} = this.props.product
         return (
-            <>
-                <div style={ShoppingCartItemStyle}>
-                    <img style={ShoppingCartItemImage} src={image} />
+
+            <CartConsumer> 
+                {(cartState) => (
+
+                    <div style={ShoppingCartItemStyle}>
+                    <img alt='product' style={ShoppingCartItemImage} src={image} />
                     <h4>{name} </h4>
                     <div style={ShoppingCartItemText}>
-                    <IconButton><DeleteIcon color="black" onClick={() => {alert('DELETE FROM CART')}}/></IconButton>
+                    <IconButton><DeleteIcon color="black" onClick={() => {cartState.deleteFromCart(this.props.product)}}/></IconButton>
 
-                        <h5>{price}:-</h5>
-                        <h5>Antal: </h5>
+                        <h5>{price * this.props.count}:-</h5>
+                        <h5>Antal: {this.props.count}</h5>
 
                     </div>
 
 
                 </div>
-                <hr></hr>
-            </>
-           
-           
-           
+
+
+        )}
+                </CartConsumer>
         )
 
       

@@ -1,10 +1,7 @@
 import React, { CSSProperties } from 'react';
 import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import ShoppingCartIcon from 'material-ui/svg-icons/action/shopping-cart';
-import FontIcon from 'material-ui/FontIcon';
 import ShoppingCartItem from './ShoppingCartItem'
 
 
@@ -13,9 +10,6 @@ import { Link } from 'react-router-dom';
 
 import { CartConsumer } from '../../contexts/CartContext';
 import ShoppingCartBadge from './ShoppingCartBadge';
-import { NONAME } from 'dns';
-
-console.log(ProductData);
 
 interface Props {
 
@@ -45,7 +39,7 @@ export default class ShoppingCart extends React.Component<Props, State> {
             <RaisedButton
               buttonStyle={shoppingCartButton}
               onClick={this.handleToggle}>
-              <ShoppingCartBadge cartCount={cartState.items.length} />
+              <ShoppingCartBadge cartCount={cartState.totalCount()} />
             </RaisedButton>
 
             <Drawer
@@ -66,12 +60,12 @@ export default class ShoppingCart extends React.Component<Props, State> {
               {/* {cartState.items.length} */}
 
               <h4 style={cartState.items.length ? kundvagn1 : kundvagn2}
-              >Kundvagnen är tom</h4>
+              >&nbsp;Kundvagnen är tom</h4>
 
               {/* {cartState.items.map((item) => ( 
                 item.
               ))} */}
-              <h5>Total: {cartState.totalSum}:-</h5>
+              <h5>&nbsp;Total: {cartState.totalPrice()}:-</h5>
             </Drawer>
 
           </div>

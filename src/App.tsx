@@ -6,13 +6,12 @@ import ProductGrid from './components/ProductGrid/ProductGrid'
 import ProductDetailView from './components/ProductDetailView/ProductDetailView'
 import ProductData from './components/Data/ProductData'
 
-import { BrowserRouter, useParams } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 import { Switch, Route } from 'react-router-dom';
 
 import Checkout from './components/Checkout/Checkout';
 import { CartProvider } from './contexts/CartContext';
-import { match } from 'minimatch';
 
 
 interface State {
@@ -44,6 +43,7 @@ class App extends React.Component<Props, State> {
       cartItems: [],
     }
   }
+
 
   render() {
     return (

@@ -71,10 +71,10 @@ class VerticalLinearStepper extends React.Component {
               <Step>
                 <StepLabel>Kundvagn</StepLabel>
                 <StepContent>
-                  <p>
-                    Din kundvagn
-              </p>
-
+                  {console.log(cartState)}
+                  {cartState.items.length ? <p>Din kundvagn består av</p> : <p>Din kundvagn är tom</p>}
+                  
+                  
                   {cartState.items.map((item) => (
                     <ShoppingCartItem product={item.product} count={item.count} />
                   ))}

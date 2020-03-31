@@ -14,7 +14,7 @@ export default function DeliveryForm() {
 
     return (
         <FormControl component="fieldset">
-            <FormLabel component="legend">Gender</FormLabel>
+            <FormLabel component="legend"></FormLabel>
             <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
                 <FormControlLabel value="postnord" control={<Radio />} label="Postnord" />
                 <FormControlLabel value="dhl" control={<Radio />} label="DHL" />
