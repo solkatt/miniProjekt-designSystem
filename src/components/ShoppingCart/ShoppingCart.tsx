@@ -5,7 +5,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import ShoppingCartItem from './ShoppingCartItem'
 
 
-import ProductData from "../Data/ProductData";
 import { Link } from 'react-router-dom';
 
 import { CartConsumer } from '../../contexts/CartContext';

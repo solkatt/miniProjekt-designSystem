@@ -7,7 +7,7 @@ import { IconButton } from 'material-ui';
 import AddShoppingCartIcon from 'material-ui/svg-icons/action/add-shopping-cart';
 import { Link } from 'react-router-dom';
 
-
+import "./ProductDetailView"
 
 interface Props {
     match: any
@@ -34,15 +34,15 @@ class ProductDetailView extends React.Component<Props, State> {
 
             <CartConsumer>
                 {(cartState) => (
-                    <div style={ProductDetailViewDiv} className="ProductItem">
-                        <Link to="/">
-                            <img alt="" style={ProductDetailViewImage} src={this.state.products[this.state.id].image} />
-                        </Link>
-                        <p className="productTitle">{this.state.products[this.state.id].name}</p>
-                        <p className="productDescription">{this.state.products[this.state.id].description}</p>
-                        <p className="productPrice">{this.state.products[this.state.id].price}:-</p>
-                        <IconButton><AddShoppingCartIcon color="black" onClick={() => cartState.addToCart(this.state.products[this.state.id])} /></IconButton>
-
+                    <div style={ProductDetailViewDiv}>
+                        <img alt="" style={ProductDetailViewImage} src={this.state.products[this.state.id].image} />
+                            <div style={{paddingTop: "6rem"}}>
+                                <p className="productTitle"><b>{this.state.products[this.state.id].name}</b><IconButton><AddShoppingCartIcon color="black" onClick={() => cartState.addToCart(this.state.products[this.state.id])} /></IconButton></p>
+                                <p className="productDescription">{this.state.products[this.state.id].description}</p>
+                                <p className="productPrice">{this.state.products[this.state.id].price}:-</p>
+                                
+                            </div>
+                        
                     </div>
 
 
@@ -54,17 +54,21 @@ class ProductDetailView extends React.Component<Props, State> {
 
 };
 
+const ProductDetailViewDiv: CSSProperties = {
+    columns: "3"
+}
+
+const ProductDetailTitle: CSSProperties = {
+    display: "flex",
+    alignItems: "center",
+}
 
 const ProductDetailViewImage: CSSProperties = {
-    width: '60%',
-    height: 'auto',
+    width: '700px',
+    height: '700px',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    margin: "1rem",
 }
-const ProductDetailViewDiv: CSSProperties = {
-    display: 'flex'
-}
-
-
 
 export default ProductDetailView;

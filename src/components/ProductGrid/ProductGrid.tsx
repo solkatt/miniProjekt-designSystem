@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import { CartConsumer } from '../../contexts/CartContext';
 
 import "./ProductGrid.css"
-import { render } from '@testing-library/react';
+import { MediaConsumer } from '../../contexts/MediaQueryContext';
 
 
 
@@ -38,82 +38,59 @@ const useStyles = makeStyles((theme: Theme) =>
 
 );
 interface State {
-  size: 'mobile' | 'tablet' | 'desktop'
+
 }
 // interfacet RouteComponentProps
 
 class ProductGrid extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
-
-    this.state = {
-      size: 'desktop'
-    }
   }
 
 
-handleWindowsResize = () => {
-  if (window.innerWidth < 579) {
-    this.setState({ size: 'mobile' })
-  } else if (window.innerWidth < 879) {
-    this.setState({ size: 'tablet' })
-  } else {
-    this.setState({ size: 'desktop' })
-  }
-}
 
-componentDidMount() {
-  window.addEventListener('resize', this.handleWindowsResize)
-}
+  render() {
+    return (
+      <MediaConsumer>
+        {(mediaState) => (
+          
+          <CartConsumer>
 
-componentWillUnmount() {
-  window.removeEventListener('resize', this.handleWindowsResize)
-}
-
-test = () => {
-  if(this.state.size === 'mobile') {
-    return 1
-  } else {
-    return 2
-  }
-}
-
-render() {
-  return (
-    <CartConsumer>
-      {(cartState) => (
-        <div >
-          <GridList
-            cellHeight={'auto'}
-            // style={GridListStyle}
-            cols={this.test()}
-
-          >
-
-            <Subheader>Produkter</Subheader>
+          {(cartState) => (
+            <div >
+            <GridList
+              cellHeight={'auto'}
+              // style={GridListStyle}
+              cols={mediaState.colNum()}
+              
+              >
+              <Subheader>Produkter</Subheader>
 
 
-            {ProductData.map((product) => (
-
-              <GridTile
-
+              {ProductData.map((product) => (
+                
+                <GridTile
+                
                 key={product.id}
-
+                
                 title={product.name}
                 subtitle={<span><b>{product.price}:-</b></span>}
                 actionIcon={<IconButton><AddShoppingCartIcon className='shoppingCartIcon' color="white" onClick={() => cartState.addToCart(product)} /></IconButton>}>
-                <Link to={"/product/" + product.id}>
-                  <img className="productImage" alt='' src={product.image} />
-                </Link>
-              </GridTile>
+                  <Link to={"/product/" + product.id}>
+                    <img className="productImage" alt='' src={product.image} />
+                  </Link>
+                </GridTile>
 
-            ))}
-          </GridList>
-        </div>
+))}
+            </GridList>
+          </div>
+        )}
+      </CartConsumer>
       )}
-    </CartConsumer>
-  )
-}}
+        </MediaConsumer>
+    )
+  }
+}
 ;
 export default ProductGrid
 

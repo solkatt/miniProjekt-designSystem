@@ -11,7 +11,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import Checkout from './components/Checkout/Checkout';
 import { CartProvider } from './contexts/CartContext';
-import withWidth from '@material-ui/core/withWidth';
+import { MediaProvider } from './contexts/MediaQueryContext';
 import { ThemeProvider } from '@material-ui/core';
 
 interface State {
@@ -48,8 +48,10 @@ class App extends React.Component<Props, State> {
   render() {
     return (
       <BrowserRouter>
+        <MediaProvider>
         <MuiThemeProvider >
           <CartProvider>
+
             <AppBarExampleIcon />
             <Switch>
 
@@ -59,6 +61,7 @@ class App extends React.Component<Props, State> {
             </Switch>
           </CartProvider>
         </MuiThemeProvider>
+        </MediaProvider>
       </BrowserRouter>
     )
   }

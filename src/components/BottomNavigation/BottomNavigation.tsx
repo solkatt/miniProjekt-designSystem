@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties }  from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
@@ -28,4 +28,14 @@ export default function MobileNavigation() {
             <BottomNavigationAction label="Kundvagn" value="folder" icon={<ShoppingCartIcon />} />
         </BottomNavigation>
     );
+}
+
+const BottomNavStyles: CSSProperties = {
+
+
+}
+
+const BottomNavStylesMobile: CSSProperties = {
+
+    
 }
