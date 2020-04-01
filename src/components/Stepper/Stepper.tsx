@@ -1,31 +1,37 @@
-import React from 'react';
-import {
-  Step,
-  Stepper,
-  StepLabel,
-  StepContent,
-} from 'material-ui/Stepper';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import ShoppingCartItem from '../ShoppingCart/ShoppingCartItem'
-import { CartConsumer } from '../../contexts/CartContext';
+import React, { CSSProperties } from "react";
+import { Step, Stepper, StepLabel, StepContent } from "material-ui/Stepper";
+import RaisedButton from "material-ui/RaisedButton";
+import FlatButton from "material-ui/FlatButton";
+import ShoppingCartItem from "../ShoppingCart/ShoppingCartItem";
+import { CartConsumer } from "../../contexts/CartContext";
 
-import CheckoutForm from '../Checkout/CheckoutForm'
-import DeliveryForm from '../Checkout/DeliveryForm';
+import CheckoutForm from "../Checkout/CheckoutForm";
+import CheckoutPay from "../Checkout/CheckoutPay";
+
+import DeliveryForm from "../Checkout/DeliveryForm";
+
 class VerticalLinearStepper extends React.Component {
-
   state = {
     finished: false,
     stepIndex: 0,
+    phone: 0
   };
 
   handleNext = () => {
     const { stepIndex } = this.state;
     this.setState({
       stepIndex: stepIndex + 1,
-      finished: stepIndex >= 3,
+      finished: stepIndex >= 3
     });
   };
+
+  test = (event: React.FormEvent) => {
+    console.log(event)
+    this.setState({
+      phone: event
+    })
+    console.log("this.state.phone", this.state.phone)
+  }
 
   handlePrev = () => {
     const { stepIndex } = this.state;
@@ -38,9 +44,9 @@ class VerticalLinearStepper extends React.Component {
     const { stepIndex } = this.state;
 
     return (
-      <div style={{ margin: '12px 0' }}>
+      <div style={{ margin: "12px 0" }}>
         <RaisedButton
-          label={stepIndex === 3 ? 'Färdig' : 'Nästa'}
+          label={stepIndex === 3 ? "Färdig" : "Nästa"}
           disableTouchRipple={true}
           disableFocusRipple={true}
           primary={true}
@@ -65,18 +71,24 @@ class VerticalLinearStepper extends React.Component {
 
     return (
       <CartConsumer>
-        {(cartState) => (
-          <div style={{ maxWidth: 380, maxHeight: 400, margin: 'auto' }}>
-            <Stepper activeStep={stepIndex} orientation="vertical">
+        {cartState => (
+          <div style={StepperContainerStyle}>
+            <Stepper style={StepperStyle} activeStep={stepIndex} orientation="vertical">
               <Step>
                 <StepLabel>Kundvagn</StepLabel>
                 <StepContent>
                   {console.log(cartState)}
-                  {cartState.items.length ? <p>Din kundvagn består av</p> : <p>Din kundvagn är tom</p>}
-                  
-                  
-                  {cartState.items.map((item) => (
-                    <ShoppingCartItem product={item.product} count={item.count} />
+                  {cartState.items.length ? (
+                    <p>Din kundvagn består av</p>
+                  ) : (
+                    <p>Din kundvagn är tom</p>
+                  )}
+
+                  {cartState.items.map(item => (
+                    <ShoppingCartItem
+                      product={item.product}
+                      count={item.count}
+                    />
                   ))}
 
                   {this.renderStepActions(0)}
@@ -85,16 +97,14 @@ class VerticalLinearStepper extends React.Component {
               <Step>
                 <StepLabel>Dina uppgifter</StepLabel>
                 <StepContent>
-                  <CheckoutForm />
+                  <CheckoutForm test={this.test} />
                   {this.renderStepActions(1)}
                 </StepContent>
               </Step>
               <Step>
                 <StepLabel>Fraktsätt</StepLabel>
                 <StepContent>
-                  <p>
-                    Välj fraktsätt
-              </p>
+                  <p>Välj fraktsätt</p>
                   <DeliveryForm />
                   {this.renderStepActions(2)}
                 </StepContent>
@@ -102,24 +112,24 @@ class VerticalLinearStepper extends React.Component {
               <Step>
                 <StepLabel>Betalsätt</StepLabel>
                 <StepContent>
-                  <p>
-                    Välj betalsätt
-              </p>
+                  <p>Välj betalsätt här är ditt jävla nummer{this.state.phone}</p>
+                  <CheckoutPay />
                   {this.renderStepActions(3)}
                 </StepContent>
               </Step>
             </Stepper>
             {finished && (
-              <p style={{ margin: '20px 0', textAlign: 'center' }}>
+              <p style={{ margin: "20px 0", textAlign: "center" }}>
                 <a
                   href="#"
-                  onClick={(event) => {
+                  onClick={event => {
                     event.preventDefault();
                     this.setState({ stepIndex: 0, finished: false });
                   }}
                 >
                   Click here
-            </a> to reset the example.
+                </a>{" "}
+                to reset the example.
               </p>
             )}
           </div>
@@ -130,3 +140,17 @@ class VerticalLinearStepper extends React.Component {
 }
 
 export default VerticalLinearStepper;
+
+
+const StepperContainerStyle: CSSProperties = {
+  maxWidth: 380,
+  maxHeight: 400,
+  margin: "auto"
+
+}
+const StepperStyle: CSSProperties = {
+
+  // width: '100vw',
+  // background: 'blue',
+
+}
