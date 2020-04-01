@@ -15,7 +15,7 @@ function AppBarExampleIcon() {
         }}>
         <AppBar
           style={mediaState.size === 'desktop' ? AppBarStyle : AppBarStyleMobile}
-          title="Lennarts dammsugeri fabrik"
+          title="Bos Dammare"
           iconClassNameRight="muidocs-icon-navigation-expand-more"
           showMenuIconButton={false}>
           <ShoppingCart />

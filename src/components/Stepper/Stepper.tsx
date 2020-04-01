@@ -64,10 +64,30 @@ class VerticalLinearStepper extends React.Component {
         )}
       </div>
     );
+
+
+  //  function validateForm() {
+  //     var x = document.forms["myForm"]["fname"].value;
+  //     if (x == "") {
+  //       alert("Name must be filled out");
+  //       return false;
+  //     }
+  //   }
+
+
+
+
+
   }
 
   render() {
     const { finished, stepIndex } = this.state;
+
+ 
+
+
+
+
 
     return (
       <CartConsumer>
@@ -83,6 +103,8 @@ class VerticalLinearStepper extends React.Component {
                   ) : (
                     <p>Din kundvagn är tom</p>
                   )}
+
+
 
                   {cartState.items.map(item => (
                     <ShoppingCartItem
@@ -109,29 +131,16 @@ class VerticalLinearStepper extends React.Component {
                   {this.renderStepActions(2)}
                 </StepContent>
               </Step>
-              <Step>
+              <Step >
                 <StepLabel>Betalsätt</StepLabel>
                 <StepContent>
-                  <p>Välj betalsätt här är ditt jävla nummer{this.state.phone}</p>
-                  <CheckoutPay />
+                  <p>Välj betalsätt </p>
+                  <CheckoutPay phoneNumber={this.state.phone} />
                   {this.renderStepActions(3)}
                 </StepContent>
               </Step>
             </Stepper>
-            {finished && (
-              <p style={{ margin: "20px 0", textAlign: "center" }}>
-                <a
-                  href="#"
-                  onClick={event => {
-                    event.preventDefault();
-                    this.setState({ stepIndex: 0, finished: false });
-                  }}
-                >
-                  Click here
-                </a>{" "}
-                to reset the example.
-              </p>
-            )}
+            {finished}
           </div>
         )}
       </CartConsumer>
