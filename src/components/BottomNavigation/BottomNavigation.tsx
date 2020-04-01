@@ -5,6 +5,7 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import RestoreIcon from 'material-ui/svg-icons/action/restore';
 
 import ShoppingCartIcon from 'material-ui/svg-icons/action/shopping-cart';
+import { MediaConsumer } from '../../contexts/MediaQueryContext';
 
 const useStyles = makeStyles({
     root: {
@@ -21,21 +22,31 @@ export default function MobileNavigation() {
     };
 
     return (
-        <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
+        <MediaConsumer>
+            {(mediaState) => (
+        <BottomNavigation 
+        style={mediaState.size === 'desktop' ? BottomNavStyle : BottomNavStyleMobile} 
+        value={value} onChange={handleChange} className={classes.root}>
             <BottomNavigationAction label="Favorites" value="favorites" icon={<ShoppingCartIcon />} />
             <BottomNavigationAction label="Nearby" value="nearby" icon={<RestoreIcon />} />
 
             <BottomNavigationAction label="Kundvagn" value="folder" icon={<ShoppingCartIcon />} />
         </BottomNavigation>
+         )}
+        </MediaConsumer>
     );
 }
 
-const BottomNavStyles: CSSProperties = {
-
+const BottomNavStyle: CSSProperties = {
+display: 'none'
 
 }
 
-const BottomNavStylesMobile: CSSProperties = {
+const BottomNavStyleMobile: CSSProperties = {
+    display: 'block',
+    position: 'absolute',
+    top: '10',
+    zIndex: 10,
 
     
 }

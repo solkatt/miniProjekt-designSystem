@@ -1,6 +1,7 @@
 import React, { CSSProperties } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { FormControl } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -21,7 +22,7 @@ export default function CheckoutForm() {
             <div>
 
 
-
+            <FormControl component="fieldset">
 
 
                 <TextField style={{ marginTop: '2rem' }} id="outlined-epost" label="E-post" type="email" variant="outlined" />
@@ -56,7 +57,7 @@ export default function CheckoutForm() {
                 <TextField id="outlined-ort" label="Ort" type="text" variant="filled" />
 
 
-
+</FormControl>
 
             </div>
         </form>
