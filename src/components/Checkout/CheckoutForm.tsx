@@ -1,7 +1,7 @@
 import React, { CSSProperties } from "react";
 import TextField from "@material-ui/core/TextField";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { UserConsumer } from "../../contexts/UserContext";
+import { CartConsumer } from "../../contexts/CartContext";
 
 interface UserInfo {
   name: string;
@@ -11,7 +11,7 @@ interface UserInfo {
   city: string;
   street: string;
 }
-interface UserProps {}
+interface UserProps { }
 
 export interface UserState {
   userInfo: UserInfo;
@@ -19,12 +19,7 @@ export interface UserState {
   numberErrorMessage: string;
   emailErrorMessage: string;
   isStepCompleted: boolean;
-  addName: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  addEmail: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  addTel: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  addZip: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  addCity: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  addStreet: (event: React.ChangeEvent<HTMLInputElement>) => void;
+
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -38,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface Props {}
+interface Props { }
 
 class CheckoutForm extends React.Component<UserProps, UserState> {
   constructor(props: Props) {
@@ -56,86 +51,16 @@ class CheckoutForm extends React.Component<UserProps, UserState> {
       numberErrorMessage: "",
       emailErrorMessage: "",
       isStepCompleted: false,
-      addName: this.addName,
-      addEmail: this.addEmail,
-      addTel: this.addTel,
-      addZip: this.addZip,
-      addCity: this.addCity,
-      addStreet: this.addStreet
+
     };
   }
 
-  addEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
-    let email = event.target.value;
-    this.setState({ userInfo: { ...this.state.userInfo, email } });
-    if (!email.includes("@") || !email.includes(".")) {
-      this.setState({ emailErrorMessage: "Måste innehålla bokstäver" });
-    } else {
-      this.setState({ emailErrorMessage: "" });
-    }
-  };
-
-  addName = (event: any) => {
-    console.log(event.target.value);
-
-    const name = event.target.value;
-    this.setState({ userInfo: { ...this.state.userInfo, name } });
-    console.log(this.state.userInfo.name);
-
-    // if (!name.includes('a') || !name.includes('ö')) {
-    //     this.setState({ stringErrorMessage: 'Måste innehålla bokstäver' })
-    // } else {
-    //     this.setState({ stringErrorMessage: '' })
-    // }
-  };
-
-  addZip = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
-    const zip = Number(event.target.value);
-    this.setState({ userInfo: { ...this.state.userInfo, zip } });
-    if (!zip.toString().includes("1") || !zip.toString().includes("2")) {
-      this.setState({ numberErrorMessage: "Måste innehålla siffror" });
-    } else {
-      this.setState({ numberErrorMessage: "" });
-    }
-  };
-
-  addTel = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const tel = Number(event.target.value);
-    this.setState({ userInfo: { ...this.state.userInfo, tel } });
-    if (!tel.toString().includes("1") || !tel.toString().includes("2")) {
-      this.setState({ numberErrorMessage: "Måste innehålla siffror" });
-    } else {
-      this.setState({ numberErrorMessage: "" });
-    }
-  };
-
-  addCity = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const city = event.target.value;
-    this.setState({ userInfo: { ...this.state.userInfo, city } });
-    if (!city.includes("a") || !city.includes("ö")) {
-      this.setState({ stringErrorMessage: "Måste innehålla bokstäver" });
-    } else {
-      this.setState({ stringErrorMessage: "" });
-    }
-  };
-
-  addStreet = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const street = event.target.value;
-    this.setState({ userInfo: { ...this.state.userInfo, street } });
-    if (!street.includes("a") || !street.includes("ö")) {
-      this.setState({ stringErrorMessage: "Måste innehålla bokstäver" });
-    } else {
-      this.setState({ stringErrorMessage: "" });
-    }
-  };
 
   render() {
     return (
-      <UserConsumer>
-        {(userState )=> (
-        
+      <CartConsumer>
+        {(cartState) => (
+
           <div>
             {" "}
             <form
@@ -153,21 +78,21 @@ class CheckoutForm extends React.Component<UserProps, UserState> {
                 label="Namn"
                 type="name"
                 variant="standard"
-                onChange={(event: any) => this.state.addName(event)}
-                value={this.state.userInfo.name}
+                onChange={(event: any) => cartState.addName(event)}
+                value={cartState.userInfo.name}
               />
               <TextField
                 required
                 style={{ marginTop: "2rem" }}
-                // id="email"
+                id="email"
                 label="E-post"
                 type="email"
                 variant="standard"
-                value={this.state.userInfo.email}
+                value={cartState.userInfo.email}
 
-                onChange={(event: any) => this.state.addEmail(event)}
-                error={Boolean(userState.emailErrorMessage)}
-                helperText={userState.emailErrorMessage}
+                onChange={(event: any) => cartState.addEmail(event)}
+              // error={Boolean(userState.emailErrorMessage)}
+              // helperText={userState.emailErrorMessage}
               />
               <TextField
                 required
@@ -175,11 +100,9 @@ class CheckoutForm extends React.Component<UserProps, UserState> {
                 label="Mobilnummer"
                 type="tel"
                 variant="standard"
-                value={this.state.userInfo.tel}
-
-                onChange={(event: any) => this.state.addTel(event)}
+                value={cartState.userInfo.tel}
+                onChange={(event: any) => cartState.addTel(event)}
               />
-
 
               <TextField
                 required
@@ -187,38 +110,33 @@ class CheckoutForm extends React.Component<UserProps, UserState> {
                 label="Adress"
                 type="text"
                 variant="filled"
-                value={this.state.userInfo.street}
-
-                onChange={(event: any) => this.state.addStreet(event)}
+                value={cartState.userInfo.street}
+                onChange={(event: any) => cartState.addStreet(event)}
               />
 
               <TextField
                 required
                 id="zip"
                 label="Postnummer"
-                type="number"
+                type="zip"
                 variant="filled"
-                value={this.state.userInfo.zip}
-
-                onChange={(event: any) => this.state.addZip(event)}
+                value={cartState.userInfo.zip}
+                onChange={(event: any) => cartState.addZip(event)}
               />
 
               <TextField
-              required
-               id="city"
+                required
+                id="city"
                 label="Ort"
-                 type="text"
-                  variant="filled"    
-                  value={this.state.userInfo.city}
-
-              onChange={(event: any) => this.state.addCity(event)}
-
-                  
-                  />
+                type="text"
+                variant="filled"
+                value={cartState.userInfo.city}
+                onChange={(event: any) => cartState.addCity(event)}
+              />
             </form>
           </div>
         )}
-      </UserConsumer>
+      </CartConsumer>
     );
   }
 }

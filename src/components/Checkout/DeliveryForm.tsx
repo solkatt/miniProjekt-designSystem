@@ -4,6 +4,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import { CartConsumer } from '../../contexts/CartContext';
 
 
 export default function DeliveryForm() {
@@ -14,58 +15,46 @@ export default function DeliveryForm() {
     };
 
 
-const data = {
-    pris: 0,
-}
 
 
+return (
 
-    const testClick = (props: any) => {
-
-        //case 'Postnord':
-          //  console.log('postnord');
-        // break;
-        //
-        //
-
-        if(props == 'postnord') {
-            data.pris = 0
-            console.log('POSTNORD VALT')
-            data.pris = 99
-            console.log(data.pris)
-           
-        } else if (props == 'DHL') {
-            data.pris = 0
-            console.log('POSTNORD VALT')
-            data.pris = 9999
-            console.log(data.pris)
-        }
+    <CartConsumer>
+        {(cartState) => (
 
 
+            <FormControl component="fieldset">
+                <FormLabel component="legend"></FormLabel>
+                <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
+                    <FormControlLabel style={priceStyle} value="postnord" control={<Radio />} label="Postnord"
+                        onChange={() => {
+                            cartState.addShipping('Postnord')
+                        }} />
+
+                    <FormControlLabel value="dhl" control={<Radio />} label="DHL"
+                        onChange={() => {
+                            cartState.addShipping('DHL')
+                        }}
+                    />
+
+                    <FormControlLabel value="dbschenker" control={<Radio />} label="DB Schenker"
+                        onChange={() => {
+                            cartState.addShipping('DB Schenker')
+                        }} />
+
+                </RadioGroup>
+            </FormControl>
 
 
-
-    }
-    return (
-        <FormControl component="fieldset">
-            <FormLabel component="legend"></FormLabel>
-            <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
-                <FormControlLabel style={priceStyle} value="postnord" control={<Radio />} label="Postn" 
-                onChange={() => {testClick('postnord')}}/>
-              
-        
-                <FormControlLabel value="dhl" control={<Radio />} label="DHL" />
-                <FormControlLabel value="dbschenker" control={<Radio />} label="DB Schenker"
-           onChange={() => {testClick('DHL')}}/>
-            </RadioGroup>
-        </FormControl>
-    );
-}
+        )}
+    </CartConsumer>
+);
+}   
 
 
 
 
-const priceStyle :CSSProperties = {
-display: 'flex',
-flexDirection: 'row'
+const priceStyle: CSSProperties = {
+    display: 'flex',
+    flexDirection: 'row'
 }

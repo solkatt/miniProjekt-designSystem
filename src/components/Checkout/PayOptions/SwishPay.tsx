@@ -1,6 +1,7 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { CartConsumer } from '../../../contexts/CartContext';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,20 +22,23 @@ console.log(props)
 
 
   return (
-    <form className={classes.root} noValidate autoComplete="off">
+      <CartConsumer> 
+      {(cartState) => (
+        <form className={classes.root} noValidate autoComplete="off">
       <div>
-      
         <TextField
           id="filled"
           label="Number"
           type="text"
-          value={props}
+          value={cartState.userInfo.tel}
           InputLabelProps={{
             shrink: true,
           }}
-        />
+          />
        
       </div>
     </form>
+          )}
+          </CartConsumer>
   );
 }

@@ -2,19 +2,20 @@ import React, { CSSProperties } from "react";
 import { Step, Stepper, StepLabel, StepContent } from "material-ui/Stepper";
 import RaisedButton from "material-ui/RaisedButton";
 import FlatButton from "material-ui/FlatButton";
-import ShoppingCartItem from "../ShoppingCart/ShoppingCartItem";
 import { CartConsumer } from "../../contexts/CartContext";
 
 import CheckoutForm from "../Checkout/CheckoutForm";
 import CheckoutPay from "../Checkout/CheckoutPay";
 
 import DeliveryForm from "../Checkout/DeliveryForm";
+import Checkbox from '@material-ui/core/Checkbox';
+import ShoppingCartItem from "../ShoppingCart/ShoppingCartItem";
+import OrderDone from "../Checkout/OrderDone";
 
 class VerticalLinearStepper extends React.Component {
   state = {
     finished: false,
     stepIndex: 0,
-    phone: 0
   };
 
   handleNext = () => {
@@ -25,13 +26,6 @@ class VerticalLinearStepper extends React.Component {
     });
   };
 
-  test = (event: React.FormEvent) => {
-    console.log(event);
-    this.setState({
-      phone: event
-    });
-    console.log("this.state.phone", this.state.phone);
-  };
 
   handlePrev = () => {
     const { stepIndex } = this.state;
@@ -64,6 +58,8 @@ class VerticalLinearStepper extends React.Component {
         )}
       </div>
     );
+    
+
 
     //  function validateForm() {
     //     var x = document.forms["myForm"]["fname"].value;
@@ -80,7 +76,7 @@ class VerticalLinearStepper extends React.Component {
     return (
       <CartConsumer>
         {cartState => (
-          <div style={StepperContainerStyle}>
+          <div style={ StepperContainerStyle }>
             <Stepper
               style={StepperStyle}
               activeStep={stepIndex}
@@ -124,12 +120,31 @@ class VerticalLinearStepper extends React.Component {
                 <StepLabel>Betalsätt</StepLabel>
                 <StepContent>
                   <p>Välj betalsätt </p>
-                  <CheckoutPay phoneNumber={this.state.phone} />
+                  <CheckoutPay />
                   {this.renderStepActions(3)}
+                <Checkbox required color="primary" />
+                <p>Jag godkänner till alla mina lagbrott</p>
                 </StepContent>
               </Step>
             </Stepper>
             {finished}
+            {!finished ? "Lite kvar till ditt nya liv" : <OrderDone />}
+            
+
+
+
+             <div style={this.state.finished ? showStyle : hideStyle}>
+               
+
+
+
+                    
+                    
+                    </div> 
+
+
+
+
           </div>
         )}
       </CartConsumer>
@@ -148,3 +163,13 @@ const StepperStyle: CSSProperties = {
   // width: '100vw',
   // background: 'blue',
 };
+
+const showStyle: CSSProperties = {
+  display: 'block'
+ }
+
+ const hideStyle: CSSProperties = {
+  display: 'none'
+ }
+
+ 

@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-  phoneNumber: number
+  
 }
 
 export default function CheckoutPay(props: Props) {
@@ -62,11 +62,11 @@ export default function CheckoutPay(props: Props) {
 
 
           </Typography>
-        
+
 
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-        
+
           <CreditCardPay />
 
         </ExpansionPanelDetails>
@@ -77,38 +77,37 @@ export default function CheckoutPay(props: Props) {
           aria-controls="panel2bh-content"
           id="panel2bh-header"
         >
-          <Typography className={classes.heading}>{ <img alt="" style={{maxWidth: '70px'}}src={SwishIcon}/>}</Typography>
+          <Typography className={classes.heading}>{<img alt="" style={{ maxWidth: '70px' }} src={SwishIcon} />}</Typography>
           <Typography className={classes.secondaryHeading}>
 
           </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <div style={swishStyle}>
-          
-<SwishPay value={props.phoneNumber} />
-<h3>{props.phoneNumber} </h3>
 
-</div>
+            <SwishPay />
+
+          </div>
         </ExpansionPanelDetails>
       </ExpansionPanel>
       <ExpansionPanel expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
         <ExpansionPanelSummary
-         expandIcon={<ExpandMoreIcon />}
+          expandIcon={<ExpandMoreIcon />}
           aria-controls="panel3bh-content"
           id="panel3bh-header"
         >
-          <Typography className={classes.heading}> <img alt="" style={{maxWidth: '70px'}}src="https://x.klarnacdn.net/payment-method/assets/badges/generic/klarna.svg
+          <Typography className={classes.heading}> <img alt="" style={{ maxWidth: '70px' }} src="https://x.klarnacdn.net/payment-method/assets/badges/generic/klarna.svg
           "/></Typography>
           <Typography className={classes.secondaryHeading}>
           </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-      
+
           <KlarnaPay />
         </ExpansionPanelDetails>
       </ExpansionPanel>
-    
-  
+
+
     </div>
   );
 }
