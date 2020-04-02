@@ -62,6 +62,7 @@ export default class ShoppingCart extends React.Component<Props, State> {
               <h4 style={cartState.items.length ? kundvagn1 : kundvagn2}
               >&nbsp;Kundvagnen är tom</h4>
 
+
               {/* {cartState.items.map((item) => ( 
                 item.
               ))} */}

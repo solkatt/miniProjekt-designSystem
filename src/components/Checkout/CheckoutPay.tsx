@@ -4,16 +4,18 @@ import ExpandMoreIcon from "material-ui/svg-icons/navigation/arrow-drop-down";
 import CreditCardIcon from "material-ui/svg-icons/action/credit-card";
 import SwishIcon from "../../icons/Pay/swish_secondary.svg"
 
-import { mdiChevronDown } from '@mdi/js';
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
-import { mdiCreditCard } from '@mdi/js';
+// import { mdiCreditCard } from '@mdi/js';
 
-import { SvgIcon } from '@material-ui/core';
+import SwishPay from "./PayOptions/SwishPay";
+import CreditCardPay from "./PayOptions/CreditCardPay";
+import KlarnaPay from "./PayOptions/KlarnaPay"
+
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -55,18 +57,17 @@ export default function CheckoutPay(props: Props) {
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
-          <Typography className={classes.heading}> Kreditkort</Typography>
+          <Typography className={classes.heading}><CreditCardIcon></CreditCardIcon></Typography>
           <Typography className={classes.secondaryHeading}>
 
 
           </Typography>
+        
 
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <Typography>
-            Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget
-            maximus est, id dignissim quam.
-          </Typography>
+        
+          <CreditCardPay />
 
         </ExpansionPanelDetails>
       </ExpansionPanel>
@@ -76,19 +77,18 @@ export default function CheckoutPay(props: Props) {
           aria-controls="panel2bh-content"
           id="panel2bh-header"
         >
-          <Typography className={classes.heading}>{ <img style={{maxWidth: '70px'}}src={SwishIcon}/>}</Typography>
+          <Typography className={classes.heading}>{ <img alt="" style={{maxWidth: '70px'}}src={SwishIcon}/>}</Typography>
           <Typography className={classes.secondaryHeading}>
 
           </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <Typography>
-            Donec placerat, lectus sed mattis semper, neque lectus feugiat lectus, varius pulvinar
-            diam eros in elit. Pellentesque convallis laoreet laoreet.
-          </Typography>
+          <div style={swishStyle}>
+          
+<SwishPay value={props.phoneNumber} />
+<h3>{props.phoneNumber} </h3>
 
-          <input type='text' value={props.phoneNumber} ></input>
-
+</div>
         </ExpansionPanelDetails>
       </ExpansionPanel>
       <ExpansionPanel expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
@@ -97,20 +97,24 @@ export default function CheckoutPay(props: Props) {
           aria-controls="panel3bh-content"
           id="panel3bh-header"
         >
-          <Typography className={classes.heading}> <img style={{maxWidth: '70px'}}src="https://x.klarnacdn.net/payment-method/assets/badges/generic/klarna.svg
+          <Typography className={classes.heading}> <img alt="" style={{maxWidth: '70px'}}src="https://x.klarnacdn.net/payment-method/assets/badges/generic/klarna.svg
           "/></Typography>
           <Typography className={classes.secondaryHeading}>
           </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <Typography>
-            Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas eros,
-            vitae egestas augue. Duis vel est augue.
-          </Typography>
+      
+          <KlarnaPay />
         </ExpansionPanelDetails>
       </ExpansionPanel>
     
   
     </div>
   );
+}
+
+const swishStyle: CSSProperties = {
+
+  display: 'flex',
+  flexDirection: 'row'
 }

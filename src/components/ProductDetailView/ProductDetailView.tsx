@@ -5,7 +5,6 @@ import { CartConsumer } from "../../contexts/CartContext";
 import { IconButton } from "material-ui";
 
 import AddShoppingCartIcon from "material-ui/svg-icons/action/add-shopping-cart";
-import { Link } from "react-router-dom";
 
 import "./ProductDetailView";
 import { MediaConsumer } from "../../contexts/MediaQueryContext";

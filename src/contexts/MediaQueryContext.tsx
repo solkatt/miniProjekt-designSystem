@@ -24,7 +24,6 @@ export class MediaProvider extends React.Component<Props, MediaState> {
             colNum: this.colNum
         }
         this.colNum()
-        console.log(this.colNum())
     }
 
     handleWindowsResize = () => {
@@ -47,7 +46,6 @@ export class MediaProvider extends React.Component<Props, MediaState> {
 
 
     colNum = () => {
-        console.log(this.state.size)
         if (this.state.size === 'mobile') {
           return 1
         } else if (this.state.size === 'tablet') {

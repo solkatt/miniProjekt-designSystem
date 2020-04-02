@@ -12,7 +12,6 @@ import { Switch, Route } from 'react-router-dom';
 import Checkout from './components/Checkout/Checkout';
 import { CartProvider } from './contexts/CartContext';
 import { MediaProvider } from './contexts/MediaQueryContext';
-import { ThemeProvider } from '@material-ui/core';
 
 interface State {
   cartItems: CartItemData[];
