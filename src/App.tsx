@@ -12,6 +12,7 @@ import { Switch, Route } from 'react-router-dom';
 import Checkout from './components/Checkout/Checkout';
 import { CartProvider } from './contexts/CartContext';
 import { MediaProvider } from './contexts/MediaQueryContext';
+import { UserProvider } from './contexts/UserContext';
 
 interface State {
   cartItems: CartItemData[];
@@ -49,16 +50,18 @@ class App extends React.Component<Props, State> {
       <BrowserRouter>
         <MediaProvider>
         <MuiThemeProvider >
-          <CartProvider>
+          <UserProvider>
+            <CartProvider>
 
-            <AppBarExampleIcon />
-            <Switch>
+              <AppBarExampleIcon />
+              <Switch>
 
-              <Route exact path="/" component={ProductGrid} />
-              <Route path="/product/:id" component={ProductDetailView} />
-              <Route path="/checkout" component={Checkout} />
-            </Switch>
-          </CartProvider>
+                <Route exact path="/" component={ProductGrid} />
+                <Route path="/product/:id" component={ProductDetailView} />
+                <Route path="/checkout" component={Checkout} />
+              </Switch>
+            </CartProvider>
+          </UserProvider>
         </MuiThemeProvider>
         </MediaProvider>
       </BrowserRouter>

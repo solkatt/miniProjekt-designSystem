@@ -117,7 +117,7 @@ export class UserProvider extends React.Component<UserProps, UserState> {
         console.log(event.target.value)
         const zip = Number(event.target.value)
         this.setState({ userInfo: { ...this.state.userInfo, zip } });
-        if (!zip.toString().includes('1') || !zip.toString().includes('2')) {
+        if (!zip.toString().includes('0')) {
             this.setState({ numberErrorMessage: 'Måste innehålla siffror' })
         } else {
             this.setState({ numberErrorMessage: '' })

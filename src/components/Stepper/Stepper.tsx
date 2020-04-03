@@ -11,6 +11,7 @@ import DeliveryForm from "../Checkout/DeliveryForm";
 import Checkbox from '@material-ui/core/Checkbox';
 import ShoppingCartItem from "../ShoppingCart/ShoppingCartItem";
 import OrderDone from "../Checkout/OrderDone";
+import ActionButtons from "./actionButtons";
 
 class VerticalLinearStepper extends React.Component {
   state = {
@@ -34,41 +35,7 @@ class VerticalLinearStepper extends React.Component {
     }
   };
 
-  renderStepActions(step: any) {
-    const { stepIndex } = this.state;
-
-    return (
-      <div style={{ margin: "12px 0" }}>
-        <RaisedButton
-          label={stepIndex === 3 ? "Färdig" : "Nästa"}
-          disableTouchRipple={true}
-          disableFocusRipple={true}
-          primary={true}
-          onClick={this.handleNext}
-          style={{ marginRight: 12 }}
-        />
-        {step > 0 && (
-          <FlatButton
-            label="Bakåt"
-            disabled={stepIndex === 0}
-            disableTouchRipple={true}
-            disableFocusRipple={true}
-            onClick={this.handlePrev}
-          />
-        )}
-      </div>
-    );
-    
-
-
-    //  function validateForm() {
-    //     var x = document.forms["myForm"]["fname"].value;
-    //     if (x == "") {
-    //       alert("Name must be filled out");
-    //       return false;
-    //     }
-    //   }
-  }
+  
 
   render() {
     const { finished, stepIndex } = this.state;
@@ -98,14 +65,14 @@ class VerticalLinearStepper extends React.Component {
                     />
                   ))}
 
-                  {this.renderStepActions(0)}
+                  <h3> Total : {cartState.totalPrice()} :-</h3>
+                  <ActionButtons stepIndex={stepIndex} onNext={this.handleNext} onPrevious={this.handlePrev}/>
                 </StepContent>
               </Step>
               <Step>
                 <StepLabel>Dina uppgifter</StepLabel>
                 <StepContent>
-                  <CheckoutForm />
-                  {this.renderStepActions(1)}
+                  <CheckoutForm cartState={cartState} stepIndex={stepIndex} onNext={this.handleNext} onPrevious={this.handlePrev}/>
                 </StepContent>
               </Step>
               <Step>
@@ -113,7 +80,6 @@ class VerticalLinearStepper extends React.Component {
                 <StepContent>
                   <p>Välj fraktsätt</p>
                   <DeliveryForm />
-                  {this.renderStepActions(2)}
                 </StepContent>
               </Step>
               <Step>
@@ -121,14 +87,13 @@ class VerticalLinearStepper extends React.Component {
                 <StepContent>
                   <p>Välj betalsätt </p>
                   <CheckoutPay />
-                  {this.renderStepActions(3)}
                 <Checkbox required color="primary" />
-                <p>Jag godkänner till alla mina lagbrott</p>
+                <p>Jag godkänner allt</p>
                 </StepContent>
               </Step>
             </Stepper>
             {finished}
-            {!finished ? "Lite kvar till ditt nya liv" : <OrderDone />}
+            {!finished ? "Lite kvar till ditt nya dammfria liv" : <OrderDone />}
             
 
 

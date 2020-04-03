@@ -14,7 +14,7 @@ export default function DeliveryForm() {
         setValue((event.target as HTMLInputElement).value);
     };
 
-
+    const Leveranstid2veckor = "Leveranstid ca 2 veckor"
 
 
 return (
@@ -26,21 +26,23 @@ return (
             <FormControl component="fieldset">
                 <FormLabel component="legend"></FormLabel>
                 <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
-                    <FormControlLabel style={priceStyle} value="postnord" control={<Radio />} label="Postnord"
+                    <FormControlLabel style={priceStyle} value="postnord" control={<Radio />} label="Postnord 99kr"
                         onChange={() => {
                             cartState.addShipping('Postnord')
+                            cartState.calcETA('Postnord') 
                         }} />
 
-                    <FormControlLabel value="dhl" control={<Radio />} label="DHL"
+                    <FormControlLabel value="dhl" control={<Radio />} label="DHL 79kr Leveranstid: 1 - 2 dagar"
                         onChange={() => {
                             cartState.addShipping('DHL')
                         }}
                     />
 
-                    <FormControlLabel value="dbschenker" control={<Radio />} label="DB Schenker"
+                    <FormControlLabel value="dbschenker" control={<Radio />} label="DB Schenker 39kr Leveranstid: 3 - 4 dagar"
                         onChange={() => {
                             cartState.addShipping('DB Schenker')
                         }} />
+
 
                 </RadioGroup>
             </FormControl>

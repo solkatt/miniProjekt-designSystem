@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { GridList, GridTile } from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
@@ -60,7 +60,7 @@ class ProductGrid extends React.Component<Props, State> {
             <div >
             <GridList
               cellHeight={'auto'}
-              // style={GridListStyle}
+              style={GridListStyle}
               cols={mediaState.colNum()}
               
               >
@@ -94,3 +94,6 @@ class ProductGrid extends React.Component<Props, State> {
 ;
 export default ProductGrid
 
+const GridListStyle: CSSProperties = {
+  width: "100%",
+}
