@@ -28,7 +28,8 @@ function OrderDone () {
 
 
                   <h1 style={prisStyle}>Pris inkl. Frakt: {cartState.totalWithShipping()} :- </h1>
-  
+                    <h3>Moms 25%:{cartState.totalPrice() / 4}  </h3>
+                    <h1>OrderNummer{Math.floor(Math.random() * 100000) + 100000}</h1>
 
                 </div>
              </div>

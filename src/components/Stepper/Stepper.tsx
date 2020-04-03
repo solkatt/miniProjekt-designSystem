@@ -13,10 +13,14 @@ import ShoppingCartItem from "../ShoppingCart/ShoppingCartItem";
 import OrderDone from "../Checkout/OrderDone";
 import ActionButtons from "./actionButtons";
 
+
+
 class VerticalLinearStepper extends React.Component {
   state = {
     finished: false,
     stepIndex: 0,
+    isOrderBeingProcessed: false,
+    orderHasBeenPlaced: false
   };
 
   handleNext = () => {
@@ -27,6 +31,11 @@ class VerticalLinearStepper extends React.Component {
     });
   };
 
+  doneTest = () => {
+
+      return new Promise(resolve => setTimeout(resolve, 3000));
+  };
+  
 
   handlePrev = () => {
     const { stepIndex } = this.state;
@@ -35,8 +44,8 @@ class VerticalLinearStepper extends React.Component {
     }
   };
 
-  done = () => {
-    return <OrderDone />  
+  done = () => {
+      return <OrderDone />  
   }
 
 
