@@ -79,7 +79,7 @@ class VerticalLinearStepper extends React.Component {
                 <StepLabel>Fraktsätt</StepLabel>
                 <StepContent>
                   <p>Välj fraktsätt</p>
-                  <DeliveryForm />
+                  <DeliveryForm cartState={cartState} stepIndex={stepIndex} onNext={this.handleNext} onPrevious={this.handlePrev} />
                 </StepContent>
               </Step>
               <Step>

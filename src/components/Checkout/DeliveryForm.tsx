@@ -4,20 +4,59 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import { CartConsumer } from '../../contexts/CartContext';
+import { CartConsumer, CartState } from "../../contexts/CartContext";
+
+import ActionButtons, { Props as ActionButtonProps } from "../Stepper/actionButtons";
+
+interface State { 
+    emailErrorMessage: string,
+    value: any,
+    handleChange: () => void 
+
+}
+
+interface Props extends ActionButtonProps {
+    cartState: CartState
+}
+ 
+export default class DeliveryForm extends React.Component<Props, State> {
+    constructor(props: Props) {
+        super(props);
+        this.state = {
+            
+            emailErrorMessage: "",
+            value: "",
+            handleChange: () => {}
+            
+
+        }
+        
+        // const [value, setValue] = React.useState('Postnord');
+    }
+
+    handleChange = () => (event: React.ChangeEvent<HTMLInputElement>) => {
+        const radioButton = event.target.value;
+        console.log(radioButton)
+        this.setState({value: radioButton})
+
+    }
+  
+    
 
 
-export default function DeliveryForm() {
-    const [value, setValue] = React.useState('female');
+    onNextStep = () => {
+        const { value } = this.state;
+    
+        if (!value) {
+          this.props.onNext()
+        }
+    }
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValue((event.target as HTMLInputElement).value);
-    };
+    render() {  
 
-    const Leveranstid2veckor = "Leveranstid ca 2 veckor"
+    const { cartState, stepIndex, onNext, onPrevious } = this.props;
 
-
-return (
+    return (
 
     <CartConsumer>
         {(cartState) => (
@@ -25,8 +64,8 @@ return (
 
             <FormControl component="fieldset">
                 <FormLabel component="legend"></FormLabel>
-                <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
-                    <FormControlLabel style={priceStyle} value="postnord" control={<Radio />} label="Postnord 99kr"
+                <RadioGroup aria-label="gender" name="gender" defaultValue="postnord" onChange={this.handleChange}>
+                    <FormControlLabel style={priceStyle} value="postnord" control={<Radio />} label="Postnord 99kr Leveranstid: 2 veckor"
                         onChange={() => {
                             cartState.addShipping('Postnord')
                             cartState.calcETA('Postnord') 
@@ -45,12 +84,17 @@ return (
 
 
                 </RadioGroup>
+                <ActionButtons stepIndex={stepIndex} onNext={this.onNextStep} onPrevious={onPrevious} />
+
             </FormControl>
+            
 
 
         )}
     </CartConsumer>
+    
 );
+}
 }   
 
 

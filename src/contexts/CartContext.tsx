@@ -32,22 +32,20 @@ export interface CartState {
   userInfo: UserInfo;
   addShipping: (props: any) => void;
   calcETA: (props: any) => void
-  addName: (event: React.ChangeEvent<HTMLInputElement>) => void
+  addName: (name: string) => void
   addEmail: (email: string) => void
-  addTel: (event: React.ChangeEvent<HTMLInputElement>) => void
-  addStreet: (event: React.ChangeEvent<HTMLInputElement>) => void
-  addCity: (event: React.ChangeEvent<HTMLInputElement>) => void
-  addZip: (event: React.ChangeEvent<HTMLInputElement>) => void
+  addTel: (tel: string) => void
+  addStreet: (street:string) => void
+  addCity: (city:string) => void
+  addZip: (zip: string) => void
   totalWithShipping: () => number;
   thisDate: () => void;
   doneFunc: () => void;
-  emailErrorMessage: string,
-
   nameErrorMessage: string,
+
   cityErrorMessage: string,
   streetErrorMessage: string,
 
-  zipErrorMessage: string
   telErrorMessage: string
   theDate: any
   done: boolean
@@ -74,11 +72,11 @@ const CartContext = createContext<CartState>({
     shippingCost: 0,
     ETA: '',
   },
-  emailErrorMessage: "",
-  nameErrorMessage: "",
+
   cityErrorMessage: "",
   streetErrorMessage: "",
-  zipErrorMessage: "",
+  nameErrorMessage: "",
+
   telErrorMessage: "",
   theDate: "",
   done: false,
@@ -86,12 +84,12 @@ const CartContext = createContext<CartState>({
   addShipping: (props: any) => { },
   calcETA: (props: any) => { },
 
-  addName: (event: React.ChangeEvent<HTMLInputElement>) => { },
+  addName: (name: string) => { },
   addEmail: (email: string) => { },
-  addTel: (event: React.ChangeEvent<HTMLInputElement>) => { },
-  addStreet: (event: React.ChangeEvent<HTMLInputElement>) => { },
-  addCity: (event: React.ChangeEvent<HTMLInputElement>) => { },
-  addZip: (event: React.ChangeEvent<HTMLInputElement>) => { },
+  addTel: (tel: string) => { },
+  addStreet: (street: string) => { },
+  addCity: (city: string) => { },
+  addZip: (zip: string) => { },
   totalWithShipping: () => 0,
   thisDate: () => { },
   doneFunc: () => { },
@@ -126,13 +124,10 @@ export class CartProvider extends React.Component<CartProps, CartState> {
         ETA: '',
 
       },
-      emailErrorMessage: "",
       nameErrorMessage: "",
       cityErrorMessage: "",
       streetErrorMessage: "",
-      zipErrorMessage: "",
       telErrorMessage: "",
-
       theDate: "",
       done: false,
 
@@ -148,8 +143,6 @@ export class CartProvider extends React.Component<CartProps, CartState> {
       totalWithShipping: this.totalWithShipping,
       thisDate: this.thisDate,
       doneFunc: this.doneFunc,
-
-
     };
   }
 
@@ -228,74 +221,20 @@ export class CartProvider extends React.Component<CartProps, CartState> {
 
 
 
-  addEmail = (email: string) => this.setState({ userInfo: { ...this.state.userInfo, email } });
+  addEmail = (email: string) =>{ this.setState({ userInfo: { ...this.state.userInfo, email } });}
 
 
 
-  addName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value)
-    let name = event.target.value
-    this.setState({ userInfo: { ...this.state.userInfo, name } });
-    console.log('UserInfo > Name: ' + this.state.userInfo.name)
-    if (!name.match('[A-ö]')) {
-      this.setState({ nameErrorMessage: 'Måste innehålla bokstäver' })
-    } else {
-      this.setState({ nameErrorMessage: '' })
-    }
+  addName = (name: string) => {this.setState({ userInfo: { ...this.state.userInfo, name } });}
 
-  }
+  addZip = (zip: string) => {this.setState({ userInfo: { ...this.state.userInfo, zip } });}
 
-  addZip = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value)
-    let zip = event.target.value
-    this.setState({ userInfo: { ...this.state.userInfo, zip } });
-    console.log('UserInfo > Zip: ' + this.state.userInfo.zip)
-    if (zip.match('[^0-9]')) {
-      this.setState({ zipErrorMessage: 'Måste innehålla siffror' })
-    } else {
-      this.setState({ zipErrorMessage: '' })
-    }
+  
+  addTel = (tel: string) =>{ this.setState({ userInfo: { ...this.state.userInfo, tel } });}
 
-  }
-  addTel = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value)
-    let tel = event.target.value
-    this.setState({ userInfo: { ...this.state.userInfo, tel } });
-    console.log('UserInfo > Tel: ' + this.state.userInfo.tel)
-    if (tel.match('[^0-9]')) {
-      this.setState({ telErrorMessage: 'Måste innehålla siffror' })
-    } else {
-      this.setState({ telErrorMessage: '' })
-    }
+  addStreet = (street: string) => {this.setState({ userInfo: { ...this.state.userInfo, street } });}
 
-  }
-
-  addStreet = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value)
-    let street = event.target.value
-    this.setState({ userInfo: { ...this.state.userInfo, street } });
-    console.log('UserInfo > Street: ' + this.state.userInfo.street)
-    if (!street.match('[A-ö]') && !street.match('[^0-9]')) {
-      this.setState({ streetErrorMessage: 'Måste innehålla bokstäver och siffror' })
-    } else {
-      this.setState({ streetErrorMessage: '' })
-    }
-
-  }
-
-  addCity = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value)
-    let city = event.target.value
-    this.setState({ userInfo: { ...this.state.userInfo, city } });
-    console.log('UserInfo > City: ' + this.state.userInfo.city)
-    if (!city.match('[A-ö]')) {
-      this.setState({ cityErrorMessage: 'Måste innehålla bokstäver' })
-    } else {
-      this.setState({ cityErrorMessage: '' })
-    }
-
-
-  }
+  addCity = (city: string) =>{ this.setState({ userInfo: { ...this.state.userInfo, city } });}
 
 
 
@@ -320,20 +259,14 @@ export class CartProvider extends React.Component<CartProps, CartState> {
 
     let ETA = ''
 
-    const date = new Date();
+    // const date = new Date();
 
+    //   date.setHours(date.getHours() + 188);
+    //   ETA = date.toDateString()
+     
 
-     if (this.state.userInfo.shipping == 'Postnord') {
-      date.setHours(date.getHours() + 188);
-      ETA = date.toDateString()
-     }
-
-
-
-    this.setState({ userInfo: { ...this.state.userInfo, ETA } });
-    console.log('UserInfo > ETA: ' + this.state.userInfo.shipping)
-
-
+    // this.setState({ userInfo: { ...this.state.userInfo, ETA } });
+    // console.log('UserInfo > ETA: ' + this.state.userInfo.shipping)
   }
 
 

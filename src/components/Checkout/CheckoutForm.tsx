@@ -15,7 +15,12 @@ interface UserInfo {
 
 export interface State {
   userInfo: UserInfo;
-  emailErrorMessage: string;
+  nameErrorMessage: string,
+  emailErrorMessage: string,
+  cityErrorMessage: string,
+  streetErrorMessage: string,
+  zipErrorMessage: string,
+  telErrorMessage: string,
   isStepCompleted: boolean;
 
 }
@@ -48,15 +53,31 @@ class CheckoutForm extends React.Component<Props, State> {
         street: ""
       },
       emailErrorMessage: "",
+      nameErrorMessage: "",
+      cityErrorMessage: "",
+      streetErrorMessage: "",
+      zipErrorMessage: "",
+      telErrorMessage: "",
       isStepCompleted: false,
 
     };
   }
 
   onNextStep = () => {
-    const { emailErrorMessage } = this.state;
+    const { emailErrorMessage, 
+      nameErrorMessage, 
+      telErrorMessage, 
+      streetErrorMessage, 
+      cityErrorMessage, 
+      zipErrorMessage, 
+    } = this.state;
 
-    if (!emailErrorMessage) {
+    if (!emailErrorMessage &&
+       !nameErrorMessage &&
+       !telErrorMessage &&
+       !streetErrorMessage &&
+       !cityErrorMessage &&
+       !zipErrorMessage) {
       this.props.onNext()
     }
   }
@@ -73,14 +94,75 @@ class CheckoutForm extends React.Component<Props, State> {
     }
   }
 
+  checkNameValidation = (prevProps: Props) => {
+
+    const { name } = this.props.cartState.userInfo;
+    const { name: prevName } = prevProps.cartState.userInfo;
+
+    if (!name.match('[A-ö]')) {
+      this.setState({ nameErrorMessage: 'Måste innehålla bokstäver' })
+    } else {
+      this.setState({ nameErrorMessage: '' })
+    }
+
+  }
+
+  checkZipValidation = (prevProps: Props) => {
+
+    const { zip } = this.props.cartState.userInfo;
+    const { zip: prevZip } = prevProps.cartState.userInfo;
+
+    if (zip.match('[^0-9]')) {
+      this.setState({ zipErrorMessage: 'Måste innehålla siffror' })
+    } else {
+      this.setState({ zipErrorMessage: '' })
+    }
+  }
+
+checkTelValidation = (prevProps: Props) => {
+  const { tel } = this.props.cartState.userInfo;
+  const { tel: prevTel } = prevProps.cartState.userInfo;
+
+  if (tel.match('[^0-9]')) {
+    this.setState({ telErrorMessage: 'Måste innehålla siffror' })
+  } else {
+    this.setState({ telErrorMessage: '' })
+  }
+}
+
+checkStreetValidation = (prevProps: Props) => {
+  const { street } = this.props.cartState.userInfo;
+  const { street: prevStreet } = prevProps.cartState.userInfo;
+
+  if (!street.match('[A-ö]') && !street.match('[^0-9]')) {
+    this.setState({ streetErrorMessage: 'Måste innehålla bokstäver och siffror' })
+  } else {
+    this.setState({ streetErrorMessage: '' })
+  }
+
+}
+
+
+checkCityValidation = (prevProps: Props) => {
+  const { city } = this.props.cartState.userInfo;
+  const { city: prevCity } = prevProps.cartState.userInfo;
+
+
+  if (!city.match('[A-ö]')) {
+    this.setState({ cityErrorMessage: 'Måste innehålla bokstäver' })
+  } else {
+    this.setState({ cityErrorMessage: '' })
+  }
+}
+
   componentDidUpdate(prevProps: Props) {
     this.checkEmailValidation(prevProps)
   }
 
 
   render() {
-    const { cartState, stepIndex, onNext, onPrevious} = this.props;
-    const { emailErrorMessage } = this.state;
+    const { cartState, stepIndex, onNext, onPrevious } = this.props;
+    const { emailErrorMessage, nameErrorMessage, telErrorMessage, streetErrorMessage, cityErrorMessage, zipErrorMessage, } = this.state;
 
     return (
       <form
@@ -95,10 +177,10 @@ class CheckoutForm extends React.Component<Props, State> {
           label="Namn"
           type="name"
           variant="standard"
-          onChange={(event: any) => cartState.addName(event)}
+          onChange={(event: any) => cartState.addName(event.tar)}
           value={cartState.userInfo.name}
-          error={Boolean(cartState.nameErrorMessage)}
-          helperText={cartState.nameErrorMessage}
+          error={Boolean(nameErrorMessage)}
+          helperText={nameErrorMessage}
         />
 
         <TextField
@@ -108,9 +190,9 @@ class CheckoutForm extends React.Component<Props, State> {
           type="tel"
           variant="standard"
           value={cartState.userInfo.tel}
-          onChange={(event: any) => cartState.addTel(event)}
-          error={Boolean(cartState.telErrorMessage)}
-          helperText={cartState.telErrorMessage}
+          onChange={(event: any) => cartState.addTel(event.target.value)}
+          error={Boolean(telErrorMessage)}
+          helperText={telErrorMessage}
         />
         <TextField
           required
@@ -133,9 +215,9 @@ class CheckoutForm extends React.Component<Props, State> {
           type="text"
           variant="filled"
           value={cartState.userInfo.street}
-          onChange={(event: any) => cartState.addStreet(event)}
-          error={Boolean(cartState.streetErrorMessage)}
-          helperText={cartState.streetErrorMessage}
+          onChange={(event: any) => cartState.addStreet(event.target.value)}
+          error={Boolean(streetErrorMessage)}
+          helperText={streetErrorMessage}
         />
 
         <TextField
@@ -145,9 +227,9 @@ class CheckoutForm extends React.Component<Props, State> {
           type="zip"
           variant="filled"
           value={cartState.userInfo.zip}
-          onChange={(event: any) => cartState.addZip(event)}
-          error={Boolean(cartState.zipErrorMessage)}
-          helperText={cartState.zipErrorMessage}
+          onChange={(event: any) => cartState.addZip(event.target.value)}
+          error={Boolean(zipErrorMessage)}
+          helperText={zipErrorMessage}
         />
 
         <TextField
@@ -157,11 +239,11 @@ class CheckoutForm extends React.Component<Props, State> {
           type="text"
           variant="filled"
           value={cartState.userInfo.city}
-          onChange={(event: any) => cartState.addCity(event)}
-          error={Boolean(cartState.cityErrorMessage)}
-          helperText={cartState.cityErrorMessage}
+          onChange={(event: any) => cartState.addCity(event.target.value)}
+          error={Boolean(cityErrorMessage)}
+          helperText={cityErrorMessage}
         />
-        <ActionButtons stepIndex={stepIndex} onNext={this.onNextStep} onPrevious={onPrevious}/>
+        <ActionButtons stepIndex={stepIndex} onNext={this.onNextStep} onPrevious={onPrevious} />
       </form>
     );
   }
