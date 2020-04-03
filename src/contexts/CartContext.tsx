@@ -7,6 +7,8 @@ interface CartItemData {
   count: number;
 }
 
+
+
 interface UserInfo {
   name: string;
   email: string;
@@ -16,7 +18,7 @@ interface UserInfo {
   zip: string;
   shipping: string,
   shippingCost: number,
-  ETA: string,
+  ETA: String,
 }
 
 interface CartProps { }
@@ -245,7 +247,6 @@ export class CartProvider extends React.Component<CartProps, CartState> {
     let shipping = props
     this.setState({ userInfo: { ...this.state.userInfo, shipping } });
 
-    console.log('UserInfo > Shipping: ' + this.state.userInfo.shipping)
 
     // let email = this.props
     // this.setState({ userInfo: { ...this.state.userInfo, email} });
@@ -255,18 +256,29 @@ export class CartProvider extends React.Component<CartProps, CartState> {
 
   calcETA = (props: any) => {
 
-    console.log('CALCEEETA BDADSADDS')
 
-    let ETA = ''
 
-    // const date = new Date();
 
-    //   date.setHours(date.getHours() + 188);
-    //   ETA = date.toDateString()
+
+  let datum = new Date()
+
+  let ETA = ''
      
 
-    // this.setState({ userInfo: { ...this.state.userInfo, ETA } });
-    // console.log('UserInfo > ETA: ' + this.state.userInfo.shipping)
+    if( props == 'Postnord') {
+    datum.setDate(datum.getDate() + 50).toString();
+    ETA = datum.toString();
+
+      } else if (props == 'DHL') {
+        datum.setDate(datum.getDate() + 1).toString();
+        ETA = datum.toString();
+      } else {
+        datum.setDate(datum.getDate() + 3).toString();
+        ETA = datum.toString();
+     }
+
+   this.setState({ userInfo: { ...this.state.userInfo, ETA } });
+   console.log('UserInfo > ETA: ' + this.state.userInfo.ETA)
   }
 
 

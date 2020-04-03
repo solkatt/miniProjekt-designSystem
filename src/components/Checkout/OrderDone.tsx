@@ -4,6 +4,7 @@ import { CartConsumer } from '../../contexts/CartContext';
 
 
 function OrderDone () {
+
     return (
         <CartConsumer>
             {(cartState) => (
@@ -26,11 +27,11 @@ function OrderDone () {
 
 
 
-                  <h1>Pris inkl. Frakt: {cartState.totalWithShipping()} :- </h1>
-                  <p>här{cartState.theDate.toString()}</p>
-                  {cartState.doneFunc()}
-</div>
-        </div>
+                  <h1 style={prisStyle}>Pris inkl. Frakt: {cartState.totalWithShipping()} :- </h1>
+  
+
+                </div>
+             </div>
                 )}
         </CartConsumer>
     )
@@ -40,10 +41,15 @@ export default OrderDone;
 
 
 const orderDoneStyle: CSSProperties = {
-    background: '#c6f2ff'
+    background: '#c6f2ff',
+    marginTop: '2rem'
 
 }
 
 const orderDetailsStyle: CSSProperties = {
     padding: '1rem',
+}
+
+const prisStyle: CSSProperties = {
+    fontSize: '1.3rem',
 }

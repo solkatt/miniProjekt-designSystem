@@ -16,6 +16,9 @@ import SwishPay from "./PayOptions/SwishPay";
 import CreditCardPay from "./PayOptions/CreditCardPay";
 import KlarnaPay from "./PayOptions/KlarnaPay"
 
+import ActionButtons, { Props as ActionButtonProps } from "../Stepper/actionButtons";
+import { CartConsumer, CartState } from "../../contexts/CartContext";
+
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -35,8 +38,10 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface Props {
-  
+
+
+interface Props extends ActionButtonProps {
+  cartState: CartState
 }
 
 export default function CheckoutPay(props: Props) {
@@ -46,8 +51,18 @@ export default function CheckoutPay(props: Props) {
   const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
 
+  }
+  
+  const onNextStep = () => {
+    
+
+      props.onNext()
+    
+
   };
 
+  
+  const { cartState, stepIndex, onNext, onPrevious } = props;
   return (
     <div className={classes.root}>
 
@@ -107,6 +122,7 @@ export default function CheckoutPay(props: Props) {
         </ExpansionPanelDetails>
       </ExpansionPanel>
 
+      <ActionButtons stepIndex={stepIndex} onNext={onNextStep} onPrevious={onPrevious} />
 
     </div>
   );

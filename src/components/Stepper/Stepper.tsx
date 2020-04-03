@@ -35,7 +35,10 @@ class VerticalLinearStepper extends React.Component {
     }
   };
 
-  
+  done = () => {
+    return <OrderDone />  
+  }
+
 
   render() {
     const { finished, stepIndex } = this.state;
@@ -43,7 +46,7 @@ class VerticalLinearStepper extends React.Component {
     return (
       <CartConsumer>
         {cartState => (
-          <div style={ StepperContainerStyle }>
+          <div style={StepperContainerStyle}>
             <Stepper
               style={StepperStyle}
               activeStep={stepIndex}
@@ -55,8 +58,8 @@ class VerticalLinearStepper extends React.Component {
                   {cartState.items.length ? (
                     <p>Din kundvagn består av</p>
                   ) : (
-                    <p>Din kundvagn är tom</p>
-                  )}
+                      <p>Din kundvagn är tom</p>
+                    )}
 
                   {cartState.items.map(item => (
                     <ShoppingCartItem
@@ -66,13 +69,13 @@ class VerticalLinearStepper extends React.Component {
                   ))}
 
                   <h3> Total : {cartState.totalPrice()} :-</h3>
-                  <ActionButtons stepIndex={stepIndex} onNext={this.handleNext} onPrevious={this.handlePrev}/>
+                  <ActionButtons stepIndex={stepIndex} onNext={this.handleNext} onPrevious={this.handlePrev} />
                 </StepContent>
               </Step>
               <Step>
                 <StepLabel>Dina uppgifter</StepLabel>
                 <StepContent>
-                  <CheckoutForm cartState={cartState} stepIndex={stepIndex} onNext={this.handleNext} onPrevious={this.handlePrev}/>
+                  <CheckoutForm cartState={cartState} stepIndex={stepIndex} onNext={this.handleNext} onPrevious={this.handlePrev} />
                 </StepContent>
               </Step>
               <Step>
@@ -86,30 +89,14 @@ class VerticalLinearStepper extends React.Component {
                 <StepLabel>Betalsätt</StepLabel>
                 <StepContent>
                   <p>Välj betalsätt </p>
-                  <CheckoutPay />
-                <Checkbox required color="primary" />
-                <p>Jag godkänner allt</p>
+                  <CheckoutPay cartState={cartState} stepIndex={stepIndex} onNext={this.handleNext} onPrevious={this.handlePrev} />
                 </StepContent>
               </Step>
             </Stepper>
             {finished}
-            {!finished ? "Lite kvar till ditt nya dammfria liv" : <OrderDone />}
-            
-
-
-
-             <div style={this.state.finished ? showStyle : hideStyle}>
-               
-
-
-
-                    
-                    
-                    </div> 
-
-
-
-
+            {!finished ? "" : this.done()}
+            <div style={this.state.finished ? showStyle : hideStyle}>
+            </div>
           </div>
         )}
       </CartConsumer>
@@ -131,10 +118,9 @@ const StepperStyle: CSSProperties = {
 
 const showStyle: CSSProperties = {
   display: 'block'
- }
+}
 
- const hideStyle: CSSProperties = {
+const hideStyle: CSSProperties = {
   display: 'none'
- }
+}
 
- 

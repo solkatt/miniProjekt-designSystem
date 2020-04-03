@@ -71,15 +71,34 @@ class CheckoutForm extends React.Component<Props, State> {
       cityErrorMessage, 
       zipErrorMessage, 
     } = this.state;
+    
+    const { email, 
+      name, 
+      tel, 
+      street, 
+      city, 
+      zip, 
+    } = this.props.cartState.userInfo;
+    
 
     if (!emailErrorMessage &&
        !nameErrorMessage &&
        !telErrorMessage &&
        !streetErrorMessage &&
        !cityErrorMessage &&
-       !zipErrorMessage) {
+       !zipErrorMessage &&
+       email &&
+       name &&
+       tel &&
+       street &&
+       city &&
+       zip
+       )
+
+       {  
       this.props.onNext()
-    }
+    
+    } 
   }
 
   checkEmailValidation = (prevProps: Props) => {
@@ -98,65 +117,72 @@ class CheckoutForm extends React.Component<Props, State> {
 
     const { name } = this.props.cartState.userInfo;
     const { name: prevName } = prevProps.cartState.userInfo;
-
-    if (!name.match('[A-ö]')) {
-      this.setState({ nameErrorMessage: 'Måste innehålla bokstäver' })
-    } else {
-      this.setState({ nameErrorMessage: '' })
+    if(name !== prevName) {
+      if (!name.match('[A-ö]')) {
+        this.setState({ nameErrorMessage: 'Måste innehålla bokstäver' })
+      } else {
+        this.setState({ nameErrorMessage: '' })
+      }
     }
 
   }
 
   checkZipValidation = (prevProps: Props) => {
-
     const { zip } = this.props.cartState.userInfo;
     const { zip: prevZip } = prevProps.cartState.userInfo;
+    
+    if (zip !== prevZip) {
+        if (zip.match('[^0-9]')) {
+          this.setState({ zipErrorMessage: 'Måste innehålla siffror' })
+        } else {
+          this.setState({ zipErrorMessage: '' })
+        }
 
-    if (zip.match('[^0-9]')) {
-      this.setState({ zipErrorMessage: 'Måste innehålla siffror' })
-    } else {
-      this.setState({ zipErrorMessage: '' })
-    }
-  }
+  }}
 
 checkTelValidation = (prevProps: Props) => {
   const { tel } = this.props.cartState.userInfo;
   const { tel: prevTel } = prevProps.cartState.userInfo;
-
+  if (tel !== prevTel) {
   if (tel.match('[^0-9]')) {
     this.setState({ telErrorMessage: 'Måste innehålla siffror' })
   } else {
     this.setState({ telErrorMessage: '' })
   }
-}
+}}
 
 checkStreetValidation = (prevProps: Props) => {
   const { street } = this.props.cartState.userInfo;
   const { street: prevStreet } = prevProps.cartState.userInfo;
-
+  if (street !== prevStreet) {
   if (!street.match('[A-ö]') && !street.match('[^0-9]')) {
     this.setState({ streetErrorMessage: 'Måste innehålla bokstäver och siffror' })
   } else {
     this.setState({ streetErrorMessage: '' })
   }
-
+  }
 }
 
 
 checkCityValidation = (prevProps: Props) => {
   const { city } = this.props.cartState.userInfo;
   const { city: prevCity } = prevProps.cartState.userInfo;
-
-
-  if (!city.match('[A-ö]')) {
-    this.setState({ cityErrorMessage: 'Måste innehålla bokstäver' })
-  } else {
-    this.setState({ cityErrorMessage: '' })
+  if(city !== prevCity) {
+    if (!city.match('[A-ö]')) {
+      this.setState({ cityErrorMessage: 'Måste innehålla bokstäver' })
+    } else {
+      this.setState({ cityErrorMessage: '' })
+    }
   }
 }
 
   componentDidUpdate(prevProps: Props) {
     this.checkEmailValidation(prevProps)
+    this.checkNameValidation(prevProps)
+    this.checkStreetValidation(prevProps)
+    this.checkTelValidation(prevProps)
+    this.checkCityValidation(prevProps)
+    this.checkZipValidation(prevProps)
   }
 
 
@@ -177,7 +203,7 @@ checkCityValidation = (prevProps: Props) => {
           label="Namn"
           type="name"
           variant="standard"
-          onChange={(event: any) => cartState.addName(event.tar)}
+          onChange={(event: any) => cartState.addName(event.target.value)}
           value={cartState.userInfo.name}
           error={Boolean(nameErrorMessage)}
           helperText={nameErrorMessage}

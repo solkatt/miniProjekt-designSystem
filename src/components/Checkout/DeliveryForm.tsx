@@ -74,12 +74,14 @@ export default class DeliveryForm extends React.Component<Props, State> {
                     <FormControlLabel value="dhl" control={<Radio />} label="DHL 79kr Leveranstid: 1 - 2 dagar"
                         onChange={() => {
                             cartState.addShipping('DHL')
+                            cartState.calcETA('DHL') 
                         }}
                     />
 
                     <FormControlLabel value="dbschenker" control={<Radio />} label="DB Schenker 39kr Leveranstid: 3 - 4 dagar"
                         onChange={() => {
                             cartState.addShipping('DB Schenker')
+                            cartState.calcETA('DB Schenker') 
                         }} />
 
 
