@@ -11,7 +11,6 @@ interface UserInfo {
 }
 interface UserProps { }
 
-
 interface UserState {
     userInfo: UserInfo
     stringErrorMessage: string
@@ -49,8 +48,6 @@ const UserContext = createContext<UserState>({
     test: () => { },
 
 });
-
-
 
 export class UserProvider extends React.Component<UserProps, UserState> {
     constructor(props: UserProps) {
@@ -98,9 +95,6 @@ export class UserProvider extends React.Component<UserProps, UserState> {
         //     this.setState({ stringErrorMessage: '' })
         // }
     }
-
-
-
 
     addEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
         console.log(event.target.value)
@@ -167,11 +161,7 @@ export class UserProvider extends React.Component<UserProps, UserState> {
     //     }
     // }
     // }
-
-
-
-
-
+    
     render() {
         return (
             <UserContext.Provider value={this.state}>

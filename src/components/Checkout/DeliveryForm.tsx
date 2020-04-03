@@ -11,14 +11,12 @@ import ActionButtons, { Props as ActionButtonProps } from "../Stepper/actionButt
 interface State { 
     emailErrorMessage: string,
     value: any,
-    handleChange: () => void 
+    handleChange: () => void,
 
 }
-
 interface Props extends ActionButtonProps {
     cartState: CartState
 }
- 
 export default class DeliveryForm extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
@@ -26,11 +24,9 @@ export default class DeliveryForm extends React.Component<Props, State> {
             
             emailErrorMessage: "",
             value: "",
-            handleChange: () => {}
-            
+            handleChange: () => {},
 
         }
-        
         // const [value, setValue] = React.useState('Postnord');
     }
 
@@ -38,12 +34,8 @@ export default class DeliveryForm extends React.Component<Props, State> {
         const radioButton = event.target.value;
         console.log(radioButton)
         this.setState({value: radioButton})
-
     }
   
-    
-
-
     onNextStep = () => {
         const { value } = this.state;
     
@@ -57,15 +49,15 @@ export default class DeliveryForm extends React.Component<Props, State> {
     const { cartState, stepIndex, onNext, onPrevious } = this.props;
 
     return (
-
     <CartConsumer>
         {(cartState) => (
-
-
             <FormControl component="fieldset">
                 <FormLabel component="legend"></FormLabel>
-                <RadioGroup aria-label="gender" name="gender" defaultValue="postnord" onChange={this.handleChange}>
-                    <FormControlLabel style={priceStyle} value="postnord" control={<Radio />} label="Postnord 99kr Leveranstid: 2 veckor"
+                <RadioGroup 
+                    aria-label="gender" 
+                    name="gender"
+                    onChange={this.handleChange}>
+                    <FormControlLabel style={priceStyle} value="postnord" control={<Radio />} label="Postnord 99kr Leveranstid: 5 dagar"
                         onChange={() => {
                             cartState.addShipping('Postnord')
                             cartState.calcETA('Postnord') 

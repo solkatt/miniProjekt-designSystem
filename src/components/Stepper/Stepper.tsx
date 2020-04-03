@@ -12,15 +12,15 @@ import Checkbox from '@material-ui/core/Checkbox';
 import ShoppingCartItem from "../ShoppingCart/ShoppingCartItem";
 import OrderDone from "../Checkout/OrderDone";
 import ActionButtons from "./actionButtons";
-
-
+import { OrderAPI } from '../../api'
 
 class VerticalLinearStepper extends React.Component {
   state = {
     finished: false,
     stepIndex: 0,
-    isOrderBeingProcessed: false,
-    orderHasBeenPlaced: false
+    allDone: false,
+    waiting: false,
+    test: []
   };
 
   handleNext = () => {
@@ -29,11 +29,6 @@ class VerticalLinearStepper extends React.Component {
       stepIndex: stepIndex + 1,
       finished: stepIndex >= 3
     });
-  };
-
-  doneTest = () => {
-
-      return new Promise(resolve => setTimeout(resolve, 3000));
   };
   
 
@@ -44,9 +39,14 @@ class VerticalLinearStepper extends React.Component {
     }
   };
 
-  done = () => {
-      return <OrderDone />  
-  }
+  OrderDone = async () => {
+    this.setState({waiting: true})
+    const respone = await OrderAPI();
+    if(respone) {
+      this.setState({ waiting: false, allDone: true});
+      console.log("funkar")
+    }
+  };
 
 
   render() {
@@ -60,22 +60,22 @@ class VerticalLinearStepper extends React.Component {
               style={StepperStyle}
               activeStep={stepIndex}
               orientation="vertical"
-            >
+              >
               <Step>
                 <StepLabel>Kundvagn</StepLabel>
                 <StepContent>
                   {cartState.items.length ? (
                     <p>Din kundvagn består av</p>
-                  ) : (
+                    ) : (
                       <p>Din kundvagn är tom</p>
-                    )}
+                      )}
 
                   {cartState.items.map(item => (
                     <ShoppingCartItem
-                      product={item.product}
-                      count={item.count}
+                    product={item.product}
+                    count={item.count}
                     />
-                  ))}
+                    ))}
 
                   <h3> Total : {cartState.totalPrice()} :-</h3>
                   <ActionButtons stepIndex={stepIndex} onNext={this.handleNext} onPrevious={this.handlePrev} />
@@ -103,7 +103,7 @@ class VerticalLinearStepper extends React.Component {
               </Step>
             </Stepper>
             {finished}
-            {!finished ? "" : this.done()}
+            {!finished ? "" : <OrderDone />}
             <div style={this.state.finished ? showStyle : hideStyle}>
             </div>
           </div>

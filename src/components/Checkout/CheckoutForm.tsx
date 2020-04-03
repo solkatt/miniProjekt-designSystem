@@ -239,7 +239,7 @@ checkCityValidation = (prevProps: Props) => {
           id="street"
           label="Adress"
           type="text"
-          variant="filled"
+          variant="standard"
           value={cartState.userInfo.street}
           onChange={(event: any) => cartState.addStreet(event.target.value)}
           error={Boolean(streetErrorMessage)}
@@ -251,7 +251,7 @@ checkCityValidation = (prevProps: Props) => {
           id="zip"
           label="Postnummer"
           type="zip"
-          variant="filled"
+          variant="standard"
           value={cartState.userInfo.zip}
           onChange={(event: any) => cartState.addZip(event.target.value)}
           error={Boolean(zipErrorMessage)}
@@ -263,7 +263,7 @@ checkCityValidation = (prevProps: Props) => {
           id="city"
           label="Ort"
           type="text"
-          variant="filled"
+          variant="standard"
           value={cartState.userInfo.city}
           onChange={(event: any) => cartState.addCity(event.target.value)}
           error={Boolean(cityErrorMessage)}

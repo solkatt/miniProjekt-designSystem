@@ -6,9 +6,6 @@ interface CartItemData {
   product: Product;
   count: number;
 }
-
-
-
 interface UserInfo {
   name: string;
   email: string;
@@ -19,6 +16,7 @@ interface UserInfo {
   shipping: string,
   shippingCost: number,
   ETA: String,
+  date: any
 }
 
 interface CartProps { }
@@ -51,7 +49,7 @@ export interface CartState {
   telErrorMessage: string
   theDate: any
   done: boolean
-
+  date: any
 }
 
 const CartContext = createContext<CartState>({
@@ -73,6 +71,7 @@ const CartContext = createContext<CartState>({
     shipping: '',
     shippingCost: 0,
     ETA: '',
+    date: "",
   },
 
   cityErrorMessage: "",
@@ -82,6 +81,7 @@ const CartContext = createContext<CartState>({
   telErrorMessage: "",
   theDate: "",
   done: false,
+  date: "",
 
   addShipping: (props: any) => { },
   calcETA: (props: any) => { },
@@ -95,11 +95,6 @@ const CartContext = createContext<CartState>({
   totalWithShipping: () => 0,
   thisDate: () => { },
   doneFunc: () => { },
-
-
-
-
-
 });
 
 export class CartProvider extends React.Component<CartProps, CartState> {
@@ -124,7 +119,7 @@ export class CartProvider extends React.Component<CartProps, CartState> {
         shipping: '',
         shippingCost: 0,
         ETA: '',
-
+        date: "",
       },
       nameErrorMessage: "",
       cityErrorMessage: "",
@@ -135,6 +130,7 @@ export class CartProvider extends React.Component<CartProps, CartState> {
 
       addShipping: this.addShipping,
       calcETA: this.calcETA,
+      date: new Date(),
 
       addName: this.addName,
       addEmail: this.addEmail,
@@ -150,6 +146,7 @@ export class CartProvider extends React.Component<CartProps, CartState> {
 
 
   addToCart = (product: Product) => {
+    this.thisDate()
     const clonedItems: CartItemData[] = Object.assign([], this.state.items);
 
     for (const item of clonedItems) {
@@ -216,85 +213,57 @@ export class CartProvider extends React.Component<CartProps, CartState> {
     return total;
   };
 
-
-
   //////////////////// USER // DINA UPPGIFTER
 
-
-
-
   addEmail = (email: string) =>{ this.setState({ userInfo: { ...this.state.userInfo, email } });}
-
-
-
   addName = (name: string) => {this.setState({ userInfo: { ...this.state.userInfo, name } });}
-
   addZip = (zip: string) => {this.setState({ userInfo: { ...this.state.userInfo, zip } });}
-
-  
   addTel = (tel: string) =>{ this.setState({ userInfo: { ...this.state.userInfo, tel } });}
-
   addStreet = (street: string) => {this.setState({ userInfo: { ...this.state.userInfo, street } });}
-
   addCity = (city: string) =>{ this.setState({ userInfo: { ...this.state.userInfo, city } });}
-
-
-
 
   //////////////////// USER // SHIPPING
 
-  addShipping = (props: any) => {
-    let shipping = props
-    this.setState({ userInfo: { ...this.state.userInfo, shipping } });
-
+  addShipping = (shipping: string) =>{ this.setState({ userInfo: { ...this.state.userInfo, shipping } });}
+    // let shipping = props
 
     // let email = this.props
     // this.setState({ userInfo: { ...this.state.userInfo, email} });
-    this.thisDate()
-
-  }
+    // this.thisDate()
+  
 
   calcETA = (props: any) => {
-
-
-
-
 
   let datum = new Date()
 
   let ETA = ''
      
 
+
     if( props == 'Postnord') {
-    datum.setDate(datum.getDate() + 50).toString();
-    ETA = datum.toString();
+    datum.setDate(datum.getDate() + 5).toString();
+    ETA = datum.toDateString();
 
       } else if (props == 'DHL') {
         datum.setDate(datum.getDate() + 1).toString();
-        ETA = datum.toString();
+        ETA = datum.toDateString();
       } else {
         datum.setDate(datum.getDate() + 3).toString();
-        ETA = datum.toString();
+        ETA = datum.toDateString();
      }
 
    this.setState({ userInfo: { ...this.state.userInfo, ETA } });
    console.log('UserInfo > ETA: ' + this.state.userInfo.ETA)
+   
   }
 
-
-
   clearCart = () => {
-    if (this.state.done) {
       this.setState({ items: [] });
-    }
   };
 
-
-
   thisDate = () => {
-    const date = new Date();
+    let date = new Date();
     this.setState({ theDate: date })
-
   }
 
   doneFunc = () => {
