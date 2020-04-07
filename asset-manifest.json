@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/miniProjekt-designSystem/static/css/main.5f27be7e.chunk.css",
+    "main.js": "/miniProjekt-designSystem/static/js/main.3f84d71c.chunk.js",
+    "main.js.map": "/miniProjekt-designSystem/static/js/main.3f84d71c.chunk.js.map",
+    "runtime-main.js": "/miniProjekt-designSystem/static/js/runtime-main.8b76efbc.js",
+    "runtime-main.js.map": "/miniProjekt-designSystem/static/js/runtime-main.8b76efbc.js.map",
+    "static/js/2.f0b0c569.chunk.js": "/miniProjekt-designSystem/static/js/2.f0b0c569.chunk.js",
+    "static/js/2.f0b0c569.chunk.js.map": "/miniProjekt-designSystem/static/js/2.f0b0c569.chunk.js.map",
+    "index.html": "/miniProjekt-designSystem/index.html",
+    "precache-manifest.76abcca9b8e62400941492b05fbe1ca2.js": "/miniProjekt-designSystem/precache-manifest.76abcca9b8e62400941492b05fbe1ca2.js",
+    "service-worker.js": "/miniProjekt-designSystem/service-worker.js",
+    "static/css/main.5f27be7e.chunk.css.map": "/miniProjekt-designSystem/static/css/main.5f27be7e.chunk.css.map",
+    "static/js/2.f0b0c569.chunk.js.LICENSE.txt": "/miniProjekt-designSystem/static/js/2.f0b0c569.chunk.js.LICENSE.txt",
+    "static/media/powerline.jpg": "/miniProjekt-designSystem/static/media/powerline.eb04c302.jpg",
+    "static/media/proanimal.png": "/miniProjekt-designSystem/static/media/proanimal.d88aa3a4.png",
+    "static/media/profamily.jpg": "/miniProjekt-designSystem/static/media/profamily.4a4a6a79.jpg",
+    "static/media/silentperformer.jpg": "/miniProjekt-designSystem/static/media/silentperformer.8a767ccb.jpg",
+    "static/media/swish_secondary.svg": "/miniProjekt-designSystem/static/media/swish_secondary.8515a90d.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8b76efbc.js",
+    "static/js/2.f0b0c569.chunk.js",
+    "static/css/main.5f27be7e.chunk.css",
+    "static/js/main.3f84d71c.chunk.js"
+  ]
+}
