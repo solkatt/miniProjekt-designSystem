@@ -19,7 +19,7 @@ class VerticalLinearStepper extends React.Component {
     finished: false,
     stepIndex: 0,
     allDone: false,
-    waiting: false,
+    waiting: true,
     test: []
   };
 
@@ -30,7 +30,7 @@ class VerticalLinearStepper extends React.Component {
       finished: stepIndex >= 3
     });
   };
-  
+
 
   handlePrev = () => {
     const { stepIndex } = this.state;
@@ -40,11 +40,11 @@ class VerticalLinearStepper extends React.Component {
   };
 
   OrderDone = async () => {
-    this.setState({waiting: true})
-    const respone = await OrderAPI();
-    if(respone) {
-      this.setState({ waiting: false, allDone: true});
-      console.log("funkar")
+    console.log("FUCK THIS")
+    const respone = await OrderAPI(this.state.waiting);
+    if (respone) {
+      this.setState({ waiting: false });
+      return <OrderDone />
     }
   };
 
@@ -60,22 +60,22 @@ class VerticalLinearStepper extends React.Component {
               style={StepperStyle}
               activeStep={stepIndex}
               orientation="vertical"
-              >
+            >
               <Step>
                 <StepLabel>Kundvagn</StepLabel>
                 <StepContent>
                   {cartState.items.length ? (
                     <p>Din kundvagn består av</p>
-                    ) : (
+                  ) : (
                       <p>Din kundvagn är tom</p>
-                      )}
+                    )}
 
                   {cartState.items.map(item => (
                     <ShoppingCartItem
-                    product={item.product}
-                    count={item.count}
+                      product={item.product}
+                      count={item.count}
                     />
-                    ))}
+                  ))}
 
                   <h3> Total : {cartState.totalPrice()} :-</h3>
                   <ActionButtons stepIndex={stepIndex} onNext={this.handleNext} onPrevious={this.handlePrev} />
@@ -103,7 +103,7 @@ class VerticalLinearStepper extends React.Component {
               </Step>
             </Stepper>
             {finished}
-            {!finished ? "" : <OrderDone />}
+            {!finished ? "" : OrderDone()}
             <div style={this.state.finished ? showStyle : hideStyle}>
             </div>
           </div>

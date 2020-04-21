@@ -8,7 +8,7 @@ import { CartConsumer, CartState } from "../../contexts/CartContext";
 
 import ActionButtons, { Props as ActionButtonProps } from "../Stepper/actionButtons";
 
-interface State { 
+interface State {
     emailErrorMessage: string,
     value: any,
     handleChange: () => void,
@@ -21,10 +21,10 @@ export default class DeliveryForm extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            
+
             emailErrorMessage: "",
             value: "",
-            handleChange: () => {},
+            handleChange: () => { },
 
         }
         // const [value, setValue] = React.useState('Postnord');
@@ -33,63 +33,63 @@ export default class DeliveryForm extends React.Component<Props, State> {
     handleChange = () => (event: React.ChangeEvent<HTMLInputElement>) => {
         const radioButton = event.target.value;
         console.log(radioButton)
-        this.setState({value: radioButton})
+        this.setState({ value: radioButton })
     }
-  
+
     onNextStep = () => {
         const { value } = this.state;
-    
+
         if (!value) {
-          this.props.onNext()
+            this.props.onNext()
         }
     }
 
-    render() {  
+    render() {
 
-    const { cartState, stepIndex, onNext, onPrevious } = this.props;
+        const { cartState, stepIndex, onNext, onPrevious } = this.props;
 
-    return (
-    <CartConsumer>
-        {(cartState) => (
-            <FormControl component="fieldset">
-                <FormLabel component="legend"></FormLabel>
-                <RadioGroup 
-                    aria-label="gender" 
-                    name="gender"
-                    onChange={this.handleChange}>
-                    <FormControlLabel style={priceStyle} value="postnord" control={<Radio />} label="Postnord 99kr Leveranstid: 5 dagar"
-                        onChange={() => {
-                            cartState.addShipping('Postnord')
-                            cartState.calcETA('Postnord') 
-                        }} />
+        return (
+            <CartConsumer>
+                {(cartState) => (
+                    <FormControl component="fieldset">
+                        <FormLabel component="legend"></FormLabel>
+                        <RadioGroup
+                            aria-label="gender"
+                            name="gender"
+                            onChange={this.handleChange}>
+                            <FormControlLabel style={priceStyle} value="postnord" control={<Radio />} label="Postnord 99kr Leveranstid: 5 dagar"
+                                onChange={() => {
+                                    cartState.addShipping('Postnord')
+                                    cartState.calcETA('Postnord')
+                                }} />
 
-                    <FormControlLabel value="dhl" control={<Radio />} label="DHL 79kr Leveranstid: 1 - 2 dagar"
-                        onChange={() => {
-                            cartState.addShipping('DHL')
-                            cartState.calcETA('DHL') 
-                        }}
-                    />
+                            <FormControlLabel value="dhl" control={<Radio />} label="DHL 79kr Leveranstid: 1 - 2 dagar"
+                                onChange={() => {
+                                    cartState.addShipping('DHL')
+                                    cartState.calcETA('DHL')
+                                }}
+                            />
 
-                    <FormControlLabel value="dbschenker" control={<Radio />} label="DB Schenker 39kr Leveranstid: 3 - 4 dagar"
-                        onChange={() => {
-                            cartState.addShipping('DB Schenker')
-                            cartState.calcETA('DB Schenker') 
-                        }} />
-
-
-                </RadioGroup>
-                <ActionButtons stepIndex={stepIndex} onNext={this.onNextStep} onPrevious={onPrevious} />
-
-            </FormControl>
-            
+                            <FormControlLabel value="dbschenker" control={<Radio />} label="DB Schenker 39kr Leveranstid: 3 - 4 dagar"
+                                onChange={() => {
+                                    cartState.addShipping('DB Schenker')
+                                    cartState.calcETA('DB Schenker')
+                                }} />
 
 
-        )}
-    </CartConsumer>
-    
-);
+                        </RadioGroup>
+                        <ActionButtons stepIndex={stepIndex} onNext={this.onNextStep} onPrevious={onPrevious} />
+
+                    </FormControl>
+
+
+
+                )}
+            </CartConsumer>
+
+        );
+    }
 }
-}   
 
 
 
