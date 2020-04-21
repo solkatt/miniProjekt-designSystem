@@ -48,9 +48,11 @@ export default class ShoppingCart extends React.Component<Props, State> {
               openSecondary={true}
               onRequestChange={(open) => this.setState({ open })}>
 
-              <Link to="/checkout" >
-                <RaisedButton label="Till kassan" fullWidth={true} onClick={this.handleClose} 
-                backgroundColor={cartState.totalCount() > 0 ? '#6ee68e' : '' }/>
+              <Link to={cartState.totalCount() > 0 ? '/checkout' : '/' }>
+              {/* <Link to="/checkout" > */}
+                <RaisedButton label="Till kassan" fullWidth={true} 
+                onClick={this.handleClose}
+                backgroundColor={cartState.totalCount() > 0 ? '#6ee68e' : '#EDEDED' }/>
               </Link>
 
               {cartState.items.map((item) => (

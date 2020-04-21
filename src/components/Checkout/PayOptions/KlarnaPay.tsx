@@ -1,17 +1,17 @@
 import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+// import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from '@material-ui/core';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      '& .MuiTextField-root': {
-        margin: theme.spacing(1),
-        width: '25ch',
-      },
-    },
-  }),
-);
+// const useStyles = makeStyles((theme: Theme) =>
+//   createStyles({
+//     root: {
+//       '& .MuiTextField-root': {
+//         margin: theme.spacing(1),
+//         width: '25ch',
+//       },
+//     },
+//   }),
+// );
 
 
 export default function KlarnaPay() {

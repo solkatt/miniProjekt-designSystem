@@ -3,7 +3,7 @@ import { GridList, GridTile } from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import AddShoppingCartIcon from 'material-ui/svg-icons/action/add-shopping-cart';
-import { createStyles, makeStyles, Theme, } from '@material-ui/core/styles/'
+// import { createStyles, makeStyles, Theme, } from '@material-ui/core/styles/'
 
 import ProductData from "../Data/ProductData"
 
@@ -19,35 +19,26 @@ interface Props {
 
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    rootClass: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-around',
-    },
-    gridList: {
-      width: 500,
-      height: 450,
-      overflowY: 'auto',
-    },
-
-
-  }),
-
-
-);
+// const useStyles = makeStyles((theme: Theme) =>
+//   createStyles({
+//     rootClass: {
+//       display: 'flex',
+//       flexWrap: 'wrap',
+//       justifyContent: 'space-around',
+//     },
+//     gridList: {
+//       width: 500,
+//       height: 450,
+//       overflowY: 'auto',
+//     },
+//   }),
+// );
 interface State {
 
 }
 // interfacet RouteComponentProps
 
 class ProductGrid extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props)
-  }
-
-
 
   render() {
     return (

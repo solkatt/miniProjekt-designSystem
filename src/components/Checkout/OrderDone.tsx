@@ -18,7 +18,7 @@ function OrderDone () {
 
                     <h4>Beräknat leveransdatum: {cartState.userInfo.ETA} </h4>
 
-                    <h1 style={prisStyle}>Pris inkl. Frakt: {cartState.totalWithShipping()}:- </h1>
+                    <h1 style={prisStyle}>Pris inkl. Frakt: {cartState.totalWithShipping()}:- {cartState.userInfo.shipping} </h1>
                     <h3>Moms: {cartState.totalPrice() / 4}:-</h3>
                     <h1>Ordernummer:<br></br>{Math.floor(Math.random() * 100000) + 100000}</h1>
 

@@ -1,7 +1,7 @@
 import React, { CSSProperties } from "react";
 import TextField from "@material-ui/core/TextField";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { CartConsumer, CartState } from "../../contexts/CartContext";
+// import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { CartState } from "../../contexts/CartContext";
 import ActionButtons, { Props as ActionButtonProps } from "../Stepper/actionButtons";
 
 interface UserInfo {
@@ -25,16 +25,16 @@ export interface State {
 
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      "& .MuiTextField-root": {
-        margin: theme.spacing(1),
-        width: "25ch"
-      }
-    }
-  })
-);
+// const useStyles = makeStyles((theme: Theme) =>
+//   createStyles({
+//     root: {
+//       "& .MuiTextField-root": {
+//         margin: theme.spacing(1),
+//         width: "25ch"
+//       }
+//     }
+//   })
+// );
 
 interface Props extends ActionButtonProps {
   cartState: CartState
@@ -64,42 +64,62 @@ class CheckoutForm extends React.Component<Props, State> {
   }
 
   onNextStep = () => {
-    const { emailErrorMessage, 
-      nameErrorMessage, 
-      telErrorMessage, 
-      streetErrorMessage, 
-      cityErrorMessage, 
-      zipErrorMessage, 
+    const { emailErrorMessage,
+      nameErrorMessage,
+      telErrorMessage,
+      streetErrorMessage,
+      cityErrorMessage,
+      zipErrorMessage,
     } = this.state;
-    
-    const { email, 
-      name, 
-      tel, 
-      street, 
-      city, 
-      zip, 
+
+    const { email,
+      name,
+      tel,
+      street,
+      city,
+      zip,
     } = this.props.cartState.userInfo;
-    
+
 
     if (!emailErrorMessage &&
-       !nameErrorMessage &&
-       !telErrorMessage &&
-       !streetErrorMessage &&
-       !cityErrorMessage &&
-       !zipErrorMessage &&
-       email &&
-       name &&
-       tel &&
-       street &&
-       city &&
-       zip
-       )
-
-       {  
+      !nameErrorMessage &&
+      !telErrorMessage &&
+      !streetErrorMessage &&
+      !cityErrorMessage &&
+      !zipErrorMessage &&
+      email &&
+      name &&
+      tel &&
+      street &&
+      city &&
+      zip
+    ) {
       this.props.onNext()
-    
+    }
+
+    else if (name.length === 0) {
+      this.setState({ nameErrorMessage: 'Fyll i ditt namn' })
     } 
+    else if (tel.length === 0) {
+      this.setState({ telErrorMessage: 'Fyll i ditt telefonnummer' })
+    }
+    else if (email.length === 0) {
+      this.setState({ emailErrorMessage: 'Fyll i din mail' })
+    } 
+    else if (street.length === 0) {
+      this.setState({ streetErrorMessage: 'Fyll i din adress' })
+    } 
+    else if (zip.length === 0) {
+      this.setState({ zipErrorMessage: 'Fyll i ditt postnummer' })
+    } 
+    else if (city.length === 0) {
+      this.setState({ cityErrorMessage: 'Fyll i din ort' })
+    }
   }
+
+
+
+
 
   checkEmailValidation = (prevProps: Props) => {
     const { email } = this.props.cartState.userInfo;
@@ -117,64 +137,71 @@ class CheckoutForm extends React.Component<Props, State> {
 
     const { name } = this.props.cartState.userInfo;
     const { name: prevName } = prevProps.cartState.userInfo;
-    if(name !== prevName) {
-      if (!name.match('[A-ö]')) {
+    if (name !== prevName) {
+      if (!name.match('[A-ö]') && name.length >= 1) {
         this.setState({ nameErrorMessage: 'Måste innehålla bokstäver' })
-      } else {
+      } else if (name.length < 1) {
+        this.setState({ nameErrorMessage: 'Fyll i ditt namn' })
+      }
+
+      else {
         this.setState({ nameErrorMessage: '' })
       }
     }
+
 
   }
 
   checkZipValidation = (prevProps: Props) => {
     const { zip } = this.props.cartState.userInfo;
     const { zip: prevZip } = prevProps.cartState.userInfo;
-    
+
     if (zip !== prevZip) {
-        if (zip.match('[^0-9]')) {
-          this.setState({ zipErrorMessage: 'Måste innehålla siffror' })
-        } else {
-          this.setState({ zipErrorMessage: '' })
-        }
+      if (zip.match('[^0-9]')) {
+        this.setState({ zipErrorMessage: 'Måste innehålla siffror' })
+      } else {
+        this.setState({ zipErrorMessage: '' })
+      }
 
-  }}
-
-checkTelValidation = (prevProps: Props) => {
-  const { tel } = this.props.cartState.userInfo;
-  const { tel: prevTel } = prevProps.cartState.userInfo;
-  if (tel !== prevTel) {
-  if (tel.match('[^0-9]')) {
-    this.setState({ telErrorMessage: 'Måste innehålla siffror' })
-  } else {
-    this.setState({ telErrorMessage: '' })
-  }
-}}
-
-checkStreetValidation = (prevProps: Props) => {
-  const { street } = this.props.cartState.userInfo;
-  const { street: prevStreet } = prevProps.cartState.userInfo;
-  if (street !== prevStreet) {
-  if (!street.match('[A-ö]') && !street.match('[^0-9]')) {
-    this.setState({ streetErrorMessage: 'Måste innehålla bokstäver och siffror' })
-  } else {
-    this.setState({ streetErrorMessage: '' })
-  }
-  }
-}
-
-
-checkCityValidation = (prevProps: Props) => {
-  const { city } = this.props.cartState.userInfo;
-  const { city: prevCity } = prevProps.cartState.userInfo;
-  if(city !== prevCity) {
-    if (!city.match('[A-ö]')) {
-      this.setState({ cityErrorMessage: 'Måste innehålla bokstäver' })
-    } else {
-      this.setState({ cityErrorMessage: '' })
     }
   }
-}
+
+  checkTelValidation = (prevProps: Props) => {
+    const { tel } = this.props.cartState.userInfo;
+    const { tel: prevTel } = prevProps.cartState.userInfo;
+    if (tel !== prevTel) {
+      if (tel.match('[^0-9]')) {
+        this.setState({ telErrorMessage: 'Måste innehålla siffror' })
+      } else {
+        this.setState({ telErrorMessage: '' })
+      }
+    }
+  }
+
+  checkStreetValidation = (prevProps: Props) => {
+    const { street } = this.props.cartState.userInfo;
+    const { street: prevStreet } = prevProps.cartState.userInfo;
+    if (street !== prevStreet) {
+      if (!street.match('[A-ö]') && !street.match('[^0-9]')) {
+        this.setState({ streetErrorMessage: 'Måste innehålla bokstäver och siffror' })
+      } else {
+        this.setState({ streetErrorMessage: '' })
+      }
+    }
+  }
+
+
+  checkCityValidation = (prevProps: Props) => {
+    const { city } = this.props.cartState.userInfo;
+    const { city: prevCity } = prevProps.cartState.userInfo;
+    if (city !== prevCity) {
+      if (!city.match('[A-ö]')) {
+        this.setState({ cityErrorMessage: 'Måste innehålla bokstäver' })
+      } else {
+        this.setState({ cityErrorMessage: '' })
+      }
+    }
+  }
 
   componentDidUpdate(prevProps: Props) {
     this.checkEmailValidation(prevProps)
@@ -187,7 +214,7 @@ checkCityValidation = (prevProps: Props) => {
 
 
   render() {
-    const { cartState, stepIndex, onNext, onPrevious } = this.props;
+    const { cartState, stepIndex, onPrevious } = this.props;
     const { emailErrorMessage, nameErrorMessage, telErrorMessage, streetErrorMessage, cityErrorMessage, zipErrorMessage, } = this.state;
 
     return (

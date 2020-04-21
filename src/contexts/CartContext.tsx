@@ -35,12 +35,13 @@ export interface CartState {
   addName: (name: string) => void
   addEmail: (email: string) => void
   addTel: (tel: string) => void
-  addStreet: (street:string) => void
-  addCity: (city:string) => void
+  addStreet: (street: string) => void
+  addCity: (city: string) => void
   addZip: (zip: string) => void
   totalWithShipping: () => number;
   thisDate: () => void;
   doneFunc: () => void;
+  setEmptyETA: () => void;
   nameErrorMessage: string,
 
   cityErrorMessage: string,
@@ -95,6 +96,7 @@ const CartContext = createContext<CartState>({
   totalWithShipping: () => 0,
   thisDate: () => { },
   doneFunc: () => { },
+  setEmptyETA: () => { },
 });
 
 export class CartProvider extends React.Component<CartProps, CartState> {
@@ -141,7 +143,12 @@ export class CartProvider extends React.Component<CartProps, CartState> {
       totalWithShipping: this.totalWithShipping,
       thisDate: this.thisDate,
       doneFunc: this.doneFunc,
+      setEmptyETA: this.setEmptyETA,
     };
+  }
+
+  componentDidMount() {
+    this.setEmptyETA()
   }
 
 
@@ -215,50 +222,58 @@ export class CartProvider extends React.Component<CartProps, CartState> {
 
   //////////////////// USER // DINA UPPGIFTER
 
-  addEmail = (email: string) =>{ this.setState({ userInfo: { ...this.state.userInfo, email } });}
-  addName = (name: string) => {this.setState({ userInfo: { ...this.state.userInfo, name } });}
-  addZip = (zip: string) => {this.setState({ userInfo: { ...this.state.userInfo, zip } });}
-  addTel = (tel: string) =>{ this.setState({ userInfo: { ...this.state.userInfo, tel } });}
-  addStreet = (street: string) => {this.setState({ userInfo: { ...this.state.userInfo, street } });}
-  addCity = (city: string) =>{ this.setState({ userInfo: { ...this.state.userInfo, city } });}
+  addEmail = (email: string) => { this.setState({ userInfo: { ...this.state.userInfo, email } }); }
+  addName = (name: string) => { this.setState({ userInfo: { ...this.state.userInfo, name } }); }
+  addZip = (zip: string) => { this.setState({ userInfo: { ...this.state.userInfo, zip } }); }
+  addTel = (tel: string) => { this.setState({ userInfo: { ...this.state.userInfo, tel } }); }
+  addStreet = (street: string) => { this.setState({ userInfo: { ...this.state.userInfo, street } }); }
+  addCity = (city: string) => { this.setState({ userInfo: { ...this.state.userInfo, city } }); }
 
   //////////////////// USER // SHIPPING
 
-  addShipping = (shipping: string) =>{ this.setState({ userInfo: { ...this.state.userInfo, shipping } });}
-    // let shipping = props
+  addShipping = (shipping: string) => { this.setState({ userInfo: { ...this.state.userInfo, shipping } }); }
+  // let shipping = props
 
-    // let email = this.props
-    // this.setState({ userInfo: { ...this.state.userInfo, email} });
-    // this.thisDate()
-  
+  // let email = this.props
+  // this.setState({ userInfo: { ...this.state.userInfo, email} });
+  // this.thisDate()
+
+
+  setEmptyETA() {
+    let datum = new Date()
+
+    let ETA = ''
+    datum.setDate(datum.getDate() + 5).toString();
+    ETA = datum.toDateString();
+    this.setState({ userInfo: { ...this.state.userInfo, ETA } });
+  }
 
   calcETA = (props: any) => {
 
-  let datum = new Date()
+    let datum = new Date()
 
-  let ETA = ''
-     
+    let ETA = ''
 
 
-    if( props == 'Postnord') {
-    datum.setDate(datum.getDate() + 5).toString();
-    ETA = datum.toDateString();
 
-      } else if (props == 'DHL') {
-        datum.setDate(datum.getDate() + 1).toString();
-        ETA = datum.toDateString();
-      } else {
-        datum.setDate(datum.getDate() + 3).toString();
-        ETA = datum.toDateString();
-     }
+    if (props === 'Postnord') {
+      datum.setDate(datum.getDate() + 5).toString();
+      ETA = datum.toDateString();
+    } else if (props === 'DHL') {
+      datum.setDate(datum.getDate() + 1).toString();
+      ETA = datum.toDateString();
+    } else if (props === "DB Schenker") {
+      datum.setDate(datum.getDate() + 3).toString();
+      ETA = datum.toDateString();
+    }
 
-   this.setState({ userInfo: { ...this.state.userInfo, ETA } });
-   console.log('UserInfo > ETA: ' + this.state.userInfo.ETA)
-   
+    this.setState({ userInfo: { ...this.state.userInfo, ETA } });
+    console.log('UserInfo > ETA: ' + this.state.userInfo.ETA)
+
   }
 
   clearCart = () => {
-      this.setState({ items: [] });
+    this.setState({ items: [] });
   };
 
   thisDate = () => {
@@ -267,7 +282,7 @@ export class CartProvider extends React.Component<CartProps, CartState> {
   }
 
   doneFunc = () => {
-    this.setState({done: true})
+    this.setState({ done: true })
   }
 
   render() {

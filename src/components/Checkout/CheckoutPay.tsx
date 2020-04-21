@@ -17,7 +17,7 @@ import CreditCardPay from "./PayOptions/CreditCardPay";
 import KlarnaPay from "./PayOptions/KlarnaPay"
 
 import ActionButtons, { Props as ActionButtonProps } from "../Stepper/actionButtons";
-import { CartConsumer, CartState } from "../../contexts/CartContext";
+import { CartState } from "../../contexts/CartContext";
 
 
 
@@ -62,7 +62,7 @@ export default function CheckoutPay(props: Props) {
   };
 
   
-  const { cartState, stepIndex, onNext, onPrevious } = props;
+  const { stepIndex, onPrevious } = props;
   return (
     <div className={classes.root}>
 

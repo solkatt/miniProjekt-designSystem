@@ -44,9 +44,16 @@ export default class DeliveryForm extends React.Component<Props, State> {
         }
     }
 
+
+
+    // defaultChecked = () => {
+    //     radiobtn =
+    // }
+
+
     render() {
 
-        const { cartState, stepIndex, onNext, onPrevious } = this.props;
+        const { stepIndex, onPrevious } = this.props;
 
         return (
             <CartConsumer>
@@ -56,8 +63,9 @@ export default class DeliveryForm extends React.Component<Props, State> {
                         <RadioGroup
                             aria-label="gender"
                             name="gender"
+                            defaultValue="postnord"
                             onChange={this.handleChange}>
-                            <FormControlLabel style={priceStyle} value="postnord" control={<Radio />} label="Postnord 99kr Leveranstid: 5 dagar"
+                            <FormControlLabel style={priceStyle} value="postnord"  control={<Radio />} label="Postnord 99kr Leveranstid: 5 dagar"
                                 onChange={() => {
                                     cartState.addShipping('Postnord')
                                     cartState.calcETA('Postnord')
@@ -78,7 +86,9 @@ export default class DeliveryForm extends React.Component<Props, State> {
 
 
                         </RadioGroup>
-                        <ActionButtons stepIndex={stepIndex} onNext={this.onNextStep} onPrevious={onPrevious} />
+                        <ActionButtons stepIndex={stepIndex} 
+                        onNext={this.onNextStep}
+                         onPrevious={onPrevious} />
 
                     </FormControl>
 
